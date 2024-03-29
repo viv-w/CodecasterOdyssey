@@ -44,14 +44,13 @@ public class MenuScreen extends ScreenAdapter {
     private void setupUI() {
         Table menuTable = new Table();
         menuTable.setFillParent(true);
-
-        TextButton startButton = new TextButton("Start Game", CodecasterOdyssey.skin);
-        menuTable.add(startButton).space(10);
-        TextButton loadButton = new TextButton("Load Game", CodecasterOdyssey.skin);
-        menuTable.row();
-        menuTable.add(loadButton).space(10);
+        stage.addActor(menuTable);
 
         // button that redirect user to StartGame
+        TextButton startButton = new TextButton("Start Game", CodecasterOdyssey.skin);
+        menuTable.add(startButton).minWidth(90).pad(5);
+        menuTable.row();
+
         startButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -60,6 +59,8 @@ public class MenuScreen extends ScreenAdapter {
         });
 
         // button that redirect user to LoadGame
+        TextButton loadButton = new TextButton("Load Game", CodecasterOdyssey.skin);
+        menuTable.add(loadButton).minWidth(90).pad(5);
         loadButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -67,8 +68,5 @@ public class MenuScreen extends ScreenAdapter {
                 // game.setScreen(new LoadGameScreen(game));
             }
         });
-
-        stage.addActor(menuTable);
     }
-    
 }
