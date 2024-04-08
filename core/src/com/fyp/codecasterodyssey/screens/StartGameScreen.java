@@ -1,98 +1,130 @@
 package com.fyp.codecasterodyssey.screens;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.fyp.codecasterodyssey.CodecasterOdyssey;
+import com.fyp.codecasterodyssey.Constants;
+import com.fyp.codecasterodyssey.user.User;
 
-public class StartGameScreen extends ScreenAdapter {
+public class StartGameScreen extends BaseScreen {
     
-    final CodecasterOdyssey codecaster;
-    private Stage stage;
+    private Table table, botTable;
+    private Label nameLabel, errorLabel;
+    private TextField nameText;
+    private TextButton confirmButton, returnButton;
 
-    public StartGameScreen(final CodecasterOdyssey game) {
-        codecaster = game;
-        stage = new Stage(new ExtendViewport(240, 320));
-        Gdx.input.setInputProcessor(stage);
-        
-        setupUI();
+    public StartGameScreen(final CodecasterOdyssey codecasterOdyssey) {
+        super(codecasterOdyssey);
     }
 
     @Override
-    public void render(float delta) {
-        ScreenUtils.clear(0.38f, 0.60f, 0.70f, 1);
-        stage.act();
-        stage.draw();
-    }
-
-    @Override
-    public void resize(int width, int height) {
-        stage.getViewport().update(width, height, true);
-    }
-
-    @Override
-    public void dispose() {
-        stage.dispose();
-    }
-
-    private void setupUI() {
-        Table table = new Table();
+    protected void setupUI() {
+        table = new Table();
         stage.addActor(table);
         table.setFillParent(true);
 
-        Label nameLabel = new Label("Enter your username", CodecasterOdyssey.skin);
+        nameLabel = new Label("Enter your username", game.getSkin());
         table.add(nameLabel).pad(5);
         table.row();
 
         // textfield to input username
-        final TextField nameText = new TextField("", CodecasterOdyssey.skin);
+        nameText = new TextField("", game.getSkin());
         table.add(nameText).pad(5);
         table.row();
 
-        // FIXME DEBUG
-        final TextField testText = new TextField("meow?", CodecasterOdyssey.skin);
-        table.add(testText).pad(5);
+        // label to display error message
+        errorLabel = new Label("", game.getSkin());
+        errorLabel.setFontScale(0.75f);
+        table.add(errorLabel).pad(5);
         table.row();
 
         // button to confirm username
-        TextButton confirmButton = new TextButton("Confirm", CodecasterOdyssey.skin);
-        table.add(confirmButton).minWidth(60).pad(5);
+        confirmButton = new TextButton(" Confirm ", game.getSkin());
+        table.add(confirmButton).pad(5);
         table.row();
 
         confirmButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                // TODO confirmation dialog and error handling!!
-                // DB create new User ofc!
-                String playerName = nameText.getText();
-                String test = testText.getText();
-                System.out.println("your username is " + playerName);
-                System.out.println("you like... " + test);
+
+                String username = nameText.getText();
+
+                // ensure username is not empty
+                if(username.isEmpty())
+                    errorLabel.setText("please enter your username");
+
+                // ensure username is not equal to a reserved value
+                else if(username.equals("nil"))
+                    errorLabel.setText("invalid username, please choose another username");
+                
+                // ensure username is alphanumeric
+                else if(!isUsernameAlphanumeric(username))
+                    errorLabel.setText("invalid username, please use only alphanumeric characters for your username");
+                
+                // ensure username is unique
+                else if(!isUsernameUnique(username))
+                    errorLabel.setText("username is taken, please choose another username");
+                
+                // FIXME should I limit the characters?
+                // display confirmation dialog
+                else {
+                    errorLabel.setText("");
+                    setConfirmDialog(username);
+                }
             }
         });
 
         // bot nav bar for home button  
-        Table botTable = new Table();
+        botTable = new Table();
         botTable.setFillParent(true);
         botTable.left().bottom();
-        TextButton returnButton = new TextButton("Back to Menu", CodecasterOdyssey.skin);
-        botTable.add(returnButton).minWidth(105).pad(5);
+        returnButton = new TextButton(" Back to Menu ", game.getSkin());
+        botTable.add(returnButton).pad(5);
 
         returnButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                codecaster.setScreen(new MenuScreen(codecaster));
+                game.changeScreen(Constants.MENU);
             }
         });
         stage.addActor(botTable);
     }
     
+    private boolean isUsernameAlphanumeric(String username) {
+        for (char c : username.toCharArray()) {
+            if (!Character.isLetterOrDigit(c))
+                return false;
+        }
+        return true;
+    }
+
+    private boolean isUsernameUnique(String username) {
+        return new User(username).getUsername().equals("nil");
+    }
+
+    private void setConfirmDialog(String username) {
+        final String tempUsername = username;
+        Dialog confirmDialog = new Dialog(" Username Confirmation", game.getSkin()) {
+            @Override
+            protected void result(Object object) {
+                boolean confirm = (Boolean) object;
+                if (confirm) {
+                    game.setCurrentUser(tempUsername);
+                    game.getCurrentUser().setupNewUser(tempUsername);
+                    game.changeScreen(Constants.GAME);
+                }
+            }
+        };
+
+        confirmDialog.text(" Are you sure your username is " + username + "? "); 
+        confirmDialog.button(" yes ", true);
+        confirmDialog.button(" no ", false);
+        confirmDialog.show(stage);
+
+    }
 }
