@@ -10,7 +10,7 @@ import com.fyp.codecasterodyssey.Constants;
 public class MenuScreen extends BaseScreen {
     
     private Table menuTable;
-    private TextButton startButton, loadButton;
+    private TextButton startButton, loadButton, testButton;
 
     public MenuScreen(final CodecasterOdyssey codecasterOdyssey) {
         super(codecasterOdyssey);
@@ -41,6 +41,17 @@ public class MenuScreen extends BaseScreen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.changeScreen(Constants.LOADGAME);
+            }
+        });
+
+        // DEBUG: button that redirect user to code editor screen
+        menuTable.row();
+        testButton = new TextButton(" codeEditor debug ", game.getSkin());
+        menuTable.add(testButton).pad(5);
+        testButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                game.changeScreen(Constants.DEBUG);
             }
         });
     }

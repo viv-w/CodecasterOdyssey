@@ -14,8 +14,10 @@ public class UserManager {
             FileHandle[] files = Gdx.files.external(".prefs/").list();
 
             for (FileHandle file : files) {
-                String fileName = file.name().substring(8);
-                saveList.add(fileName);
+                String fileName = file.name();
+
+                if(fileName.startsWith("Profile_"))
+                    saveList.add(fileName.substring(8));
             }
         }
         

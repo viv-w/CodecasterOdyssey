@@ -9,14 +9,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.fyp.codecasterodyssey.CodecasterOdyssey;
 import com.fyp.codecasterodyssey.Constants;
+import com.fyp.codecasterodyssey.UI.ReturnButton;
 import com.fyp.codecasterodyssey.user.User;
 
 public class StartGameScreen extends BaseScreen {
     
-    private Table table, botTable;
+    private Table table;
     private Label nameLabel, errorLabel;
     private TextField nameText;
-    private TextButton confirmButton, returnButton;
+    private TextButton confirmButton;
 
     public StartGameScreen(final CodecasterOdyssey codecasterOdyssey) {
         super(codecasterOdyssey);
@@ -79,20 +80,7 @@ public class StartGameScreen extends BaseScreen {
             }
         });
 
-        // bot nav bar for home button  
-        botTable = new Table();
-        botTable.setFillParent(true);
-        botTable.left().bottom();
-        returnButton = new TextButton(" Back to Menu ", game.getSkin());
-        botTable.add(returnButton).pad(5);
-
-        returnButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                game.changeScreen(Constants.MENU);
-            }
-        });
-        stage.addActor(botTable);
+        stage.addActor(new ReturnButton(game, true));
     }
     
     private boolean isUsernameAlphanumeric(String username) {
@@ -116,7 +104,7 @@ public class StartGameScreen extends BaseScreen {
                 if (confirm) {
                     game.setCurrentUser(tempUsername);
                     game.getCurrentUser().setupNewUser(tempUsername);
-                    game.changeScreen(Constants.GAME);
+                    game.changeScreen(Constants.HOME);
                 }
             }
         };

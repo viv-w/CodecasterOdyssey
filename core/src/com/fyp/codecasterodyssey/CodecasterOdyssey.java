@@ -12,7 +12,9 @@ public class CodecasterOdyssey extends Game {
 	private MenuScreen menuScreen;
 	private StartGameScreen startGameScreen;
 	private LoadGameScreen loadGameScreen;
+	private HomeScreen homeScreen;
 	private GameScreen gameScreen;
+	private DebugScreen debugScreen;
 	
 	private Skin skin;
 	private User currentUser;	
@@ -29,17 +31,28 @@ public class CodecasterOdyssey extends Game {
 		super.render();
 	}
 	
-	// FIXME don't forget to dispose
 	@Override
 	public void dispose () {
-		menuScreen.dispose();
-		startGameScreen.dispose();
-		loadGameScreen.dispose();
-		gameScreen.dispose();
-		skin.dispose();
+		disposeScreens();
 	}
 
-	// changing screens FIXME use ScreenManager.java?
+	// get Skin
+	public Skin getSkin() {
+		return this.skin;
+	}
+
+	// get ProfileManager
+	public User getCurrentUser() {
+		return currentUser;
+	}
+
+	// set ProfileManager
+	public void setCurrentUser(String username) {
+		currentUser = new User(username);
+	}
+
+	// FIXME use ScreenManager.java? but it seems slightly troublesome, private screens, disposal, changeScreen(), game.getScreenManager();
+	// changing screens 
 	public void changeScreen(int screen) {
 		switch (screen) {
 			case Constants.MENU:
@@ -58,25 +71,34 @@ public class CodecasterOdyssey extends Game {
 				setScreen(loadGameScreen);
 				break;
 
+			case Constants.HOME:
+				if(homeScreen == null) homeScreen = new HomeScreen(this);
+				setScreen(homeScreen);
+				break;
+				
 			case Constants.GAME:
 				if(gameScreen == null) gameScreen = new GameScreen(this);
 				setScreen(gameScreen);
 				break;
+
+			case Constants.DEBUG:
+				if(debugScreen == null) debugScreen = new DebugScreen(this);
+				setScreen(debugScreen);
+				break;
+
+			default:
+				throw new IllegalArgumentException("Invalid Screen");
 		}
 	}
 
-	// get Skin
-	public Skin getSkin() {
-		return this.skin;
-	}
-
-	// get ProfileManager
-	public User getCurrentUser() {
-		return currentUser;
-	}
-
-	// set ProfileManager
-	public void setCurrentUser(String username) {
-		currentUser = new User(username);
+	// FIXME don't forget to dispose the remaining screens
+	private void disposeScreens() {
+		if(menuScreen != null) menuScreen.dispose();
+		if (startGameScreen != null) startGameScreen.dispose();
+		if (loadGameScreen != null) loadGameScreen.dispose();
+		if (homeScreen != null) homeScreen.dispose();
+		if (gameScreen != null) gameScreen.dispose();
+		if (debugScreen != null) debugScreen.dispose();
+		skin.dispose();
 	}
 }

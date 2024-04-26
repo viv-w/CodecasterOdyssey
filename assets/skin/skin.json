@@ -1,6 +1,7 @@
 {
   "com.badlogic.gdx.graphics.g2d.BitmapFont": { 
-    "default": { "file": "Abaddon-Light.fnt" }
+    "default": { "file": "Abaddon-Light.fnt" },
+    "code-font": {"file": "RobotoMono-Regular.fnt"}
   },
   "com.badlogic.gdx.graphics.Color": {
     "white": { "r": 1, "g": 1, "b": 1, "a": 1 },
@@ -236,5 +237,8 @@
 "com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle": {
     "default": { "titleFont": "default", "background": "window", "titleFontColor": "fontDisabled" },
     "dialog": { "titleFont": "default", "background": "window", "titleFontColor": "fontDisabled", "stageBackground": "alpha" }
+},
+"com.fyp.codecasterodyssey.UI.codeEditor.codeEditor.CodeEditor$CodeEditorStyle": {
+  "default": { "selection": "selection", "background": "window", "font": "default", "fontColor": "font", "cursor": "cursor" }
 }
 }

@@ -2,24 +2,22 @@ package com.fyp.codecasterodyssey.screens;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.fyp.codecasterodyssey.CodecasterOdyssey;
 import com.fyp.codecasterodyssey.Constants;
+import com.fyp.codecasterodyssey.UI.ReturnButton;
 import com.fyp.codecasterodyssey.user.UserManager;
 
 public class LoadGameScreen extends BaseScreen {
 
-    private Table table, scrollTable, botTable;
+    private Table table, scrollTable;
     private ScrollPane scrollPane;
-    private TextButton returnButton; // + exportButton if files not in .prefs? 
+    // + exportButton if files not in .prefs? 
 
     public LoadGameScreen(final CodecasterOdyssey codecasterOdyssey) {
         super(codecasterOdyssey);
@@ -63,21 +61,7 @@ public class LoadGameScreen extends BaseScreen {
             table.row();
         }
 
-        // bot nav bar for home button
-        botTable = new Table();
-        botTable.setFillParent(true);
-        botTable.left().bottom();
-        returnButton = new TextButton(" Back to Menu ", game.getSkin());
-        botTable.add(returnButton).pad(5);
-
-        returnButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                game.changeScreen(Constants.MENU);
-            }
-        });
-        stage.addActor(botTable);
-
+        stage.addActor(new ReturnButton(game, true));
     }
 
     private void setConfirmDialog(String username) {
@@ -88,7 +72,7 @@ public class LoadGameScreen extends BaseScreen {
                 boolean confirm = (Boolean) object;
                 if (confirm) {
                     game.setCurrentUser(tempUsername);
-                    game.changeScreen(Constants.GAME);
+                    game.changeScreen(Constants.HOME);
                 }
             }
         };
