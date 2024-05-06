@@ -71,7 +71,7 @@ public class LoadGameScreen extends BaseScreen {
             protected void result(Object object) {
                 boolean confirm = (Boolean) object;
                 if (confirm) {
-                    game.setCurrentUser(tempUsername);
+                    game.setCurrentUser(UserManager.loadUserJSON(tempUsername));
                     game.changeScreen(Constants.HOME);
                 }
             }

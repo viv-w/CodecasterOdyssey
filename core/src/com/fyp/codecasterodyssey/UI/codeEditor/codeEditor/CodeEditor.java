@@ -36,7 +36,7 @@ public class CodeEditor extends Widget {
     static private final char ENTER_DESKTOP = '\r';
     static private final char TAB = '\t';
     static private final char DELETE = 127;
-    static private final char BULLET = 149;
+    // static private final char BULLET = 149;
     private ShapeRenderer shape;
     private CodeEditorStyle style;
     private final BitmapFont font;
@@ -218,17 +218,17 @@ public class CodeEditor extends Widget {
         return out;
     }
 
-    private String buildStringFromLines() {
-        String s = "";
-        for (int i = 0; i < this.lines.size(); i++) {
-            Line line = lines.get(i);
-            s += line.getCachedFullText();
-            if (i != this.lines.size() - 1) {
-                s += "\n";
-            }
-        }
-        return s;
-    }
+    // private String buildStringFromLines() {
+    //     String s = "";
+    //     for (int i = 0; i < this.lines.size(); i++) {
+    //         Line line = lines.get(i);
+    //         s += line.getCachedFullText();
+    //         if (i != this.lines.size() - 1) {
+    //             s += "\n";
+    //         }
+    //     }
+    //     return s;
+    // }
 
     protected boolean onKeyTyped(InputEvent event, char character) {
         if (disabled) return false;
@@ -594,8 +594,8 @@ public class CodeEditor extends Widget {
         int fromLine = caret.getRowScrollPosition();
         int toLine = Math.min(fromLine + visibleLinesCount(), this.lines.size());
 
-        int fromChar = caret.getColScrollPosition();
-        int toChar = fromChar + visibleCharsCount();
+        // int fromChar = caret.getColScrollPosition();
+        // int toChar = fromChar + visibleCharsCount();
 
         int xOffset = (int) (caret.getColScrollPosition() * font.getSpaceXadvance());
 
@@ -730,7 +730,7 @@ public class CodeEditor extends Widget {
         scrollbar.setHeight(height);
 
         //scrollbar.setRange(0, lines.size() - visibleLinesCount());
-        int scroll = (int) (scrollbar.getMaxValue() - scrollbar.getValue());
+        // int scroll = (int) (scrollbar.getMaxValue() - scrollbar.getValue());
         //caret.setRowScrollPosition(scroll);
         // scrollbar.draw(renderBatch, parentAlpha);
     }

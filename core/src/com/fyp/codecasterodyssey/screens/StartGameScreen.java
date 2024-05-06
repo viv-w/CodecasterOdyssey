@@ -11,6 +11,7 @@ import com.fyp.codecasterodyssey.CodecasterOdyssey;
 import com.fyp.codecasterodyssey.Constants;
 import com.fyp.codecasterodyssey.UI.ReturnButton;
 import com.fyp.codecasterodyssey.user.User;
+import com.fyp.codecasterodyssey.user.UserManager;
 
 public class StartGameScreen extends BaseScreen {
     
@@ -68,7 +69,7 @@ public class StartGameScreen extends BaseScreen {
                     errorLabel.setText("invalid username, please use only alphanumeric characters for your username");
                 
                 // ensure username is unique
-                else if(!isUsernameUnique(username))
+                else if(UserManager.isUserExist(username))
                     errorLabel.setText("username is taken, please choose another username");
                 
                 // FIXME should I limit the characters?
@@ -91,10 +92,7 @@ public class StartGameScreen extends BaseScreen {
         return true;
     }
 
-    private boolean isUsernameUnique(String username) {
-        return new User(username).getUsername().equals("nil");
-    }
-
+    // FIXME change to JSON
     private void setConfirmDialog(String username) {
         final String tempUsername = username;
         Dialog confirmDialog = new Dialog(" Username Confirmation", game.getSkin()) {
@@ -102,9 +100,14 @@ public class StartGameScreen extends BaseScreen {
             protected void result(Object object) {
                 boolean confirm = (Boolean) object;
                 if (confirm) {
-                    game.setCurrentUser(tempUsername);
-                    game.getCurrentUser().setupNewUser(tempUsername);
+
+                    User user = new User(tempUsername);
+                    game.setCurrentUser(user);
+
+                    
+
                     game.changeScreen(Constants.HOME);
+
                 }
             }
         };

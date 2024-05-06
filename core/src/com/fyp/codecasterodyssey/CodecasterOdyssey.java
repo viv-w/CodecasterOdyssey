@@ -47,8 +47,8 @@ public class CodecasterOdyssey extends Game {
 	}
 
 	// set ProfileManager
-	public void setCurrentUser(String username) {
-		currentUser = new User(username);
+	public void setCurrentUser(User user) {
+		currentUser = user;
 	}
 
 	// FIXME use ScreenManager.java? but it seems slightly troublesome, private screens, disposal, changeScreen(), game.getScreenManager();
