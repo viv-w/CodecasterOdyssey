@@ -1,0 +1,92 @@
+[
+    {
+        "class": "com.fyp.codecasterodyssey.LearningPath",
+        "id": "path01",
+        "description": "Take a look into codecasting (programming) and some fundamental concepts:",
+        "quests": [
+            {
+                "id": "quest01",
+                "name": "Getting started with programming"
+            },
+            {
+                "id": "quest02",
+                "name": "Printing"
+            },
+            {
+                "id": "quest03",
+                "name": "Reading input"
+            }
+        ],
+        "spells": [
+            {
+                "id": "spell01",
+                "content": [
+                    "To program means to give instructions to the computer, for example, play a certain sound, print something on the screen, or multiply two numbers.",
+                    "When there is a series of commands, we have a computer program (script), it describes a sequence of calculations, evaluations, iterations, and all kinds of similar operations, which aim to accomplish some result.",
+                    "The program is written in text format, which is called source code. It is written in a particular programming language. To write commands, we need to be familiar with the syntax and semantics of the language we'll be using, in our case - Java.",
+                    "Code Example:",
+                    "To print \"Hello world\", you can use the pre-defined Java command System.out.println(), to which you need to provide the text inside the parentheses that you'd like to be printed:",
+                    "System.out.println(\"Hello World\");",
+                    "The above statement is pre-built into Java, and it's used for printing a string. The statement tells the computer to output the string that's been provided to it, placed between the quotation marks. The statement ends with a semicolon ;"
+                ]
+            },
+            {
+                "id": "spell02",
+                "content": [
+                    "The print command System.out.println(\"Hello world\"); prints the text \"Hello world.\"",
+                    "input: System.out.println(\"Hello world\");",
+                    "output: Hello world!",
+                    "You can print any text you want with the command, as long as the command System.out.println(\"text\"); -i.e., System dot out dot println open parenthesis ( \"the text\" close parenthesis ) and semicolon ; remains unchanged.",
+                    "The command below will print the text \"Hello <username>!\".",
+                    "input: System.out.println(\"Hello <username>!\");",
+                    "output: Hello <username>!"
+                ]
+            },
+            {
+                "id": "spell03",
+                "content": [
+                    "SPELL 3 CONTENT HERE"
+                ]
+            }
+        ]
+    },
+    {
+        "class": "com.fyp.codecasterodyssey.LearningPath",
+        "id": "path02",
+        "description": "Get familiar with more fundamental concepts:",
+        "quests": [
+            {
+                "id": "quest04",
+                "name": "Variables"
+            },
+            {
+                "id": "quest05",
+                "name": "Calculating with numbers"
+            },
+            {
+                "id": "quest06",
+                "name": "Conditional statements and conditional operation"
+            }
+        ],
+        "spells": [
+            {
+                "id": "spell04",
+                "content": [
+                    "SPELL CONTENT HERE"
+                ]
+            },
+            {
+                "id": "spell05",
+                "content": [
+                    "SPELL CONTENT HERE"
+                ]
+            },
+            {
+                "id": "spell06",
+                "content": [
+                    "SPELL CONTENT HERE"
+                ]
+            }
+        ]
+    }
+]

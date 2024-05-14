@@ -15,5 +15,5 @@ public class Constants {
     public final static int QUEST = 10;
     public final static int DEBUG = 11;
 
-    // something else - shud I include PREFS?
+    // something else 
 }

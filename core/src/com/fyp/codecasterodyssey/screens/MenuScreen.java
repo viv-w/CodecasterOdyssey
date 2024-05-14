@@ -9,7 +9,7 @@ import com.fyp.codecasterodyssey.Constants;
 
 public class MenuScreen extends BaseScreen {
     
-    private Table menuTable;
+    private Table root;
     private TextButton startButton, loadButton;
 
     public MenuScreen(final CodecasterOdyssey codecasterOdyssey) {
@@ -18,14 +18,14 @@ public class MenuScreen extends BaseScreen {
 
     @Override
     protected void setupUI() {
-        menuTable = new Table();
-        menuTable.setFillParent(true);
-        stage.addActor(menuTable);
+        root = new Table();
+        root.setFillParent(true);
+        stage.addActor(root);
 
         // button that redirect user to StartGame
         startButton = new TextButton(" Start Game ", game.getSkin());
-        menuTable.add(startButton).pad(5);
-        menuTable.row();
+        root.add(startButton).pad(5);
+        root.row();
 
         startButton.addListener(new ChangeListener() {
             @Override
@@ -36,7 +36,7 @@ public class MenuScreen extends BaseScreen {
 
         // button that redirect user to LoadGame
         loadButton = new TextButton(" Load Game ", game.getSkin());
-        menuTable.add(loadButton).pad(5);
+        root.add(loadButton).pad(5);
         loadButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {

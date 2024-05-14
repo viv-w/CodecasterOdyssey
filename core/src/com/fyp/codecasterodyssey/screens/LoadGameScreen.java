@@ -10,12 +10,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.fyp.codecasterodyssey.CodecasterOdyssey;
 import com.fyp.codecasterodyssey.Constants;
+import com.fyp.codecasterodyssey.FileUtility;
 import com.fyp.codecasterodyssey.UI.ReturnButton;
-import com.fyp.codecasterodyssey.user.UserManager;
 
 public class LoadGameScreen extends BaseScreen {
 
-    private Table table, scrollTable;
+    private Table root, scrollTable;
     private ScrollPane scrollPane;
     // + exportButton if files not in .prefs? 
 
@@ -25,13 +25,13 @@ public class LoadGameScreen extends BaseScreen {
 
     @Override
     protected void setupUI() {
-        table = new Table();
-        stage.addActor(table);
-        table.setFillParent(true);
+        root = new Table();
+        stage.addActor(root);
+        root.setFillParent(true);
 
         scrollTable = new Table();
         scrollTable.top();
-        ArrayList<String> saveList = UserManager.getAllUsers();
+        ArrayList<String> saveList = FileUtility.getAllUsers();
         if(!saveList.isEmpty()) {
             for (String save : saveList) {
                 Table saveTable = new Table();
@@ -52,16 +52,16 @@ public class LoadGameScreen extends BaseScreen {
             scrollPane = new ScrollPane(scrollTable, game.getSkin());
             scrollPane.setFadeScrollBars(false);
             scrollPane.setFlickScroll(false);
+            scrollPane.setScrollingDisabled(true, false);
             scrollPane.validate();
-            table.add(scrollPane).prefHeight(200).minWidth(300).pad(5);
-            table.row();
+            root.add(scrollPane).prefHeight(200).minWidth(300).pad(5);
+            root.row();
         }
         else {
-            table.add(new Label(" no saves ", game.getSkin())).pad(5);
-            table.row();
+            root.add(new Label(" no saves ", game.getSkin())).pad(5);
         }
 
-        stage.addActor(new ReturnButton(game, true));
+        stage.addActor(new ReturnButton(game, "menu"));
     }
 
     private void setConfirmDialog(String username) {
@@ -71,10 +71,11 @@ public class LoadGameScreen extends BaseScreen {
             protected void result(Object object) {
                 boolean confirm = (Boolean) object;
                 if (confirm) {
-                    game.setCurrentUser(UserManager.loadUserJSON(tempUsername));
+                    game.setCurrentUser(FileUtility.loadUserJSON(tempUsername));
                     game.changeScreen(Constants.HOME);
                 }
             }
+            
         };
 
         confirmDialog.text(" Load save file for " + username + "? ");

@@ -9,13 +9,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.fyp.codecasterodyssey.CodecasterOdyssey;
 import com.fyp.codecasterodyssey.Constants;
+import com.fyp.codecasterodyssey.FileUtility;
+import com.fyp.codecasterodyssey.User;
 import com.fyp.codecasterodyssey.UI.ReturnButton;
-import com.fyp.codecasterodyssey.user.User;
-import com.fyp.codecasterodyssey.user.UserManager;
 
 public class StartGameScreen extends BaseScreen {
     
-    private Table table;
+    private Table root;
     private Label nameLabel, errorLabel;
     private TextField nameText;
     private TextButton confirmButton;
@@ -26,29 +26,29 @@ public class StartGameScreen extends BaseScreen {
 
     @Override
     protected void setupUI() {
-        table = new Table();
-        stage.addActor(table);
-        table.setFillParent(true);
+        root = new Table();
+        stage.addActor(root);
+        root.setFillParent(true);
 
         nameLabel = new Label("Enter your username", game.getSkin());
-        table.add(nameLabel).pad(5);
-        table.row();
+        root.add(nameLabel).pad(5);
+        root.row();
 
         // textfield to input username
         nameText = new TextField("", game.getSkin());
-        table.add(nameText).pad(5);
-        table.row();
+        root.add(nameText).pad(5);
+        root.row();
 
         // label to display error message
         errorLabel = new Label("", game.getSkin());
         errorLabel.setFontScale(0.75f);
-        table.add(errorLabel).pad(5);
-        table.row();
+        root.add(errorLabel).pad(5);
+        root.row();
 
         // button to confirm username
         confirmButton = new TextButton(" Confirm ", game.getSkin());
-        table.add(confirmButton).pad(5);
-        table.row();
+        root.add(confirmButton).pad(5);
+        root.row();
 
         confirmButton.addListener(new ChangeListener() {
             @Override
@@ -68,11 +68,14 @@ public class StartGameScreen extends BaseScreen {
                 else if(!isUsernameAlphanumeric(username))
                     errorLabel.setText("invalid username, please use only alphanumeric characters for your username");
                 
+                // ensure length is less than equal 20 characters
+                else if(username.length() > 20)
+                    errorLabel.setText("invalid username, please use only at most 20 characters");
+
                 // ensure username is unique
-                else if(UserManager.isUserExist(username))
+                else if(FileUtility.isUserExist(username))
                     errorLabel.setText("username is taken, please choose another username");
                 
-                // FIXME should I limit the characters?
                 // display confirmation dialog
                 else {
                     errorLabel.setText("");
@@ -81,7 +84,7 @@ public class StartGameScreen extends BaseScreen {
             }
         });
 
-        stage.addActor(new ReturnButton(game, true));
+        stage.addActor(new ReturnButton(game, "menu"));
     }
     
     private boolean isUsernameAlphanumeric(String username) {
@@ -92,7 +95,6 @@ public class StartGameScreen extends BaseScreen {
         return true;
     }
 
-    // FIXME change to JSON
     private void setConfirmDialog(String username) {
         final String tempUsername = username;
         Dialog confirmDialog = new Dialog(" Username Confirmation", game.getSkin()) {
@@ -103,9 +105,6 @@ public class StartGameScreen extends BaseScreen {
 
                     User user = new User(tempUsername);
                     game.setCurrentUser(user);
-
-                    
-
                     game.changeScreen(Constants.HOME);
 
                 }

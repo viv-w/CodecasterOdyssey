@@ -11,28 +11,30 @@ public class ReturnButton extends Table {
 
     private TextButton returnButton;
 
-    public ReturnButton(final CodecasterOdyssey game, boolean isMenu) {
+    public ReturnButton(final CodecasterOdyssey game, String returnScreen) {
         super();
         this.setFillParent(true);
         this.left().bottom();
 
-        returnButton = new TextButton(" Back to Menu ", game.getSkin());
-        if(!isMenu) returnButton.getLabel().setText(" Home ");
+        String returnText = "";
+        if(returnScreen.equals("menu")) returnText = " Back to Menu ";
+        else if(returnScreen.equals("home")) returnText = " Home ";
+        else if(returnScreen.equals("game")) returnText = " Back to Game ";
+
+        returnButton = new TextButton(returnText, game.getSkin());
         this.add(returnButton).pad(5);
 
-        final boolean menu = isMenu;
+        final String menu = returnScreen;
         returnButton.addListener(new ChangeListener() {
             
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if(menu)
-                    game.changeScreen(Constants.MENU);
-                else
-                    game.changeScreen(Constants.HOME);
+                if (menu.equals("menu")) game.changeScreen(Constants.MENU);
+                else if (menu.equals("home")) game.changeScreen(Constants.HOME);
+                else if (menu.equals("game")) game.changeScreen(Constants.GAME);
             }
         });
 
-        // FIXME based on report, home button are on the right of Game Screen w Code Editor so...
     }
         
 }

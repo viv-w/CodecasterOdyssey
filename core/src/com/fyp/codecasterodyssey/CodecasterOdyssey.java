@@ -1,10 +1,11 @@
 package com.fyp.codecasterodyssey;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.fyp.codecasterodyssey.screens.*;
-import com.fyp.codecasterodyssey.user.User;
 
 public class CodecasterOdyssey extends Game {
 
@@ -13,9 +14,18 @@ public class CodecasterOdyssey extends Game {
 	private StartGameScreen startGameScreen;
 	private LoadGameScreen loadGameScreen;
 	private HomeScreen homeScreen;
+	private LearningPathScreen learningPathScreen;
+	private SpellProgressScreen spellProgressScreen;
+	private QuestProgressScreen questProgressScreen;
+	private LeaderboardScreen leaderboardScreen;
 	private GameScreen gameScreen;
+	private SpellScreen spellScreen;
+	private QuestScreen questScreen;
 	private DebugScreen debugScreen;
 	
+	// data
+	private ArrayList<LearningPath> allPaths;
+
 	private Skin skin;
 	private User currentUser;	
 
@@ -23,6 +33,9 @@ public class CodecasterOdyssey extends Game {
 	@Override
 	public void create () {
 		skin = new Skin(Gdx.files.internal("skin/skin.json"));
+
+		allPaths = FileUtility.loadPaths();
+
 		changeScreen(Constants.MENU);
 	}
 
@@ -41,12 +54,14 @@ public class CodecasterOdyssey extends Game {
 		return this.skin;
 	}
 
-	// get ProfileManager
 	public User getCurrentUser() {
 		return currentUser;
 	}
 
-	// set ProfileManager
+	public ArrayList<LearningPath> getAllPaths() {
+		return allPaths;
+	}
+
 	public void setCurrentUser(User user) {
 		currentUser = user;
 	}
@@ -76,12 +91,48 @@ public class CodecasterOdyssey extends Game {
 				setScreen(homeScreen);
 				break;
 				
+			case Constants.LEARNING_PATH:
+				if (learningPathScreen == null)
+					learningPathScreen = new LearningPathScreen(this);
+				setScreen(learningPathScreen);
+				break;
+
+			case Constants.SPELL_PROGRESS:
+				if (spellProgressScreen == null)
+					spellProgressScreen = new SpellProgressScreen(this);
+				setScreen(spellProgressScreen);
+				break;
+
+			case Constants.QUEST_PROGRESS:
+				if (questProgressScreen == null)
+					questProgressScreen = new QuestProgressScreen(this);
+				setScreen(questProgressScreen);
+				break;
+
+			case Constants.LEADERBOARD:
+				if (leaderboardScreen == null)
+					leaderboardScreen = new LeaderboardScreen(this);
+				setScreen(leaderboardScreen);
+				break;
+
 			case Constants.GAME:
 				if(gameScreen == null) gameScreen = new GameScreen(this);
 				setScreen(gameScreen);
 				break;
 
-			case Constants.DEBUG:
+			case Constants.SPELL:
+				if (spellScreen == null)
+					spellScreen = new SpellScreen(this);
+				setScreen(spellScreen);
+				break;
+
+			case Constants.QUEST:
+				if (questScreen == null)
+					questScreen = new QuestScreen(this);
+				setScreen(questScreen);
+				break;
+
+			case Constants.DEBUG: // FIXME remove debug
 				if(debugScreen == null) debugScreen = new DebugScreen(this);
 				setScreen(debugScreen);
 				break;
@@ -91,14 +142,19 @@ public class CodecasterOdyssey extends Game {
 		}
 	}
 
-	// FIXME don't forget to dispose the remaining screens
 	private void disposeScreens() {
 		if(menuScreen != null) menuScreen.dispose();
 		if (startGameScreen != null) startGameScreen.dispose();
 		if (loadGameScreen != null) loadGameScreen.dispose();
 		if (homeScreen != null) homeScreen.dispose();
+		if (learningPathScreen != null) learningPathScreen.dispose();
+		if (spellProgressScreen != null) spellProgressScreen.dispose();
+		if (questProgressScreen != null) questProgressScreen.dispose();
+		if (leaderboardScreen != null) leaderboardScreen.dispose();
 		if (gameScreen != null) gameScreen.dispose();
-		if (debugScreen != null) debugScreen.dispose();
+		if (spellScreen != null) spellScreen.dispose();
+		if (questScreen != null) questScreen.dispose();
+		if (debugScreen != null) debugScreen.dispose(); // FIXME remove debug
 		skin.dispose();
 	}
 }
