@@ -20,17 +20,13 @@ public class QuestScreen extends BaseScreen {
         root.setFillParent(true);
 
         if(game.getCurrentUser().getCurrentQuest() != null) {
-            // something something StringBuilder
+            // TODO something something StringBuilder
         }
         else {
             root.add(new Label("no quest selected", game.getSkin()));
         }
 
-
-
-        // TODO get user current quest, else label "geg sot quest now!"
-
-        stage.addActor(new ReturnButton(game, "game"));
+        stage.addActor(new ReturnButton(game, stage, "game"));
 
     }
     

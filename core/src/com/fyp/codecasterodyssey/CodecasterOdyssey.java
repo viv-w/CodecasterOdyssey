@@ -5,13 +5,18 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.fyp.codecasterodyssey.events.Scene;
 import com.fyp.codecasterodyssey.screens.*;
+import com.github.tommyettinger.textra.Font;
+import com.github.tommyettinger.textra.KnownFonts;
+import com.github.tommyettinger.textra.TypingConfig;
+import com.github.tommyettinger.textra.Font.FontFamily;
 
 public class CodecasterOdyssey extends Game {
 
 	// screens
 	private MenuScreen menuScreen;
-	private StartGameScreen startGameScreen;
+	private NewGameScreen newGameScreen;
 	private LoadGameScreen loadGameScreen;
 	private HomeScreen homeScreen;
 	private LearningPathScreen learningPathScreen;
@@ -24,19 +29,37 @@ public class CodecasterOdyssey extends Game {
 	private DebugScreen debugScreen;
 	
 	// data
+	private ArrayList<User> allUsers;
 	private ArrayList<LearningPath> allPaths;
+	private ArrayList<Spell> allSpells;
+	private ArrayList<Scene> allScenes;
 
 	private Skin skin;
+	private Font gameFont, spellFont, codeFont;
+	private FontFamily fontFamily;
 	private User currentUser;	
 
 	
 	@Override
 	public void create () {
 		skin = new Skin(Gdx.files.internal("skin/skin.json"));
+		skin.getFont("codeFont").getData().setScale(0.25f);
 
-		allPaths = FileUtility.loadPaths();
+		gameFont = new Font("RaccoonSerif-Medium.fnt").scale(0.75f, 0.75f);
+		spellFont = KnownFonts.getGoNotoUniversal().scaleTo(30, 15).setBoldStrength(0.001f);
+		codeFont = KnownFonts.getCascadiaMono().scaleTo(5, 10);
+		fontFamily = new FontFamily(new Font[]{gameFont, spellFont, codeFont});
 
-		changeScreen(Constants.MENU);
+		allUsers = FileUtility.getAllUsers();
+		allPaths = FileUtility.getAllPaths();
+		allScenes = FileUtility.getAllScenes();
+
+		allSpells = new ArrayList<>();
+		for(LearningPath path : allPaths) {
+			allSpells.addAll(path.getSpells());
+		}
+
+		changeScreen(Constants.DEBUG);
 	}
 
 	@Override
@@ -49,20 +72,36 @@ public class CodecasterOdyssey extends Game {
 		disposeScreens();
 	}
 
-	// get Skin
 	public Skin getSkin() {
 		return this.skin;
+	}
+
+	public FontFamily getFontFamily() {
+		return fontFamily;
 	}
 
 	public User getCurrentUser() {
 		return currentUser;
 	}
 
+	public ArrayList<User> getAllUsers() {
+		return allUsers;
+	}
+
+	public ArrayList<Scene> getAllScenes() {
+		return allScenes;
+	}
+
 	public ArrayList<LearningPath> getAllPaths() {
 		return allPaths;
 	}
 
+	public ArrayList<Spell> getAllSpells() {
+		return allSpells;
+	}
+
 	public void setCurrentUser(User user) {
+		TypingConfig.GLOBAL_VARS.put("USERNAME", user.getUsername());
 		currentUser = user;
 	}
 
@@ -73,12 +112,13 @@ public class CodecasterOdyssey extends Game {
 			case Constants.MENU:
 				if(menuScreen == null) menuScreen = new MenuScreen(this);
 				setScreen(menuScreen);
-				currentUser = null; // FIXME ensure if this is enough
+				currentUser = null; // TODO ensure if this is enough - is there 'remote' currentUser saving somewhere in screens?
+				TypingConfig.GLOBAL_VARS.remove("USERNAME");
 				break;
 		
-			case Constants.STARTGAME:
-				if (startGameScreen == null) startGameScreen = new StartGameScreen(this);
-				setScreen(startGameScreen);
+			case Constants.NEWGAME:
+				if (newGameScreen == null) newGameScreen = new NewGameScreen(this);
+				setScreen(newGameScreen);
 				break;
 
 			case Constants.LOADGAME:
@@ -132,7 +172,7 @@ public class CodecasterOdyssey extends Game {
 				setScreen(questScreen);
 				break;
 
-			case Constants.DEBUG: // FIXME remove debug
+			case Constants.DEBUG:
 				if(debugScreen == null) debugScreen = new DebugScreen(this);
 				setScreen(debugScreen);
 				break;
@@ -144,7 +184,7 @@ public class CodecasterOdyssey extends Game {
 
 	private void disposeScreens() {
 		if(menuScreen != null) menuScreen.dispose();
-		if (startGameScreen != null) startGameScreen.dispose();
+		if (newGameScreen != null) newGameScreen.dispose();
 		if (loadGameScreen != null) loadGameScreen.dispose();
 		if (homeScreen != null) homeScreen.dispose();
 		if (learningPathScreen != null) learningPathScreen.dispose();
@@ -154,7 +194,7 @@ public class CodecasterOdyssey extends Game {
 		if (gameScreen != null) gameScreen.dispose();
 		if (spellScreen != null) spellScreen.dispose();
 		if (questScreen != null) questScreen.dispose();
-		if (debugScreen != null) debugScreen.dispose(); // FIXME remove debug
+		if (debugScreen != null) debugScreen.dispose();
 		skin.dispose();
 	}
 }

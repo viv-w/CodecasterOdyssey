@@ -57,6 +57,6 @@ project(":core") {
 
     dependencies {
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
-        
+        implementation "com.github.tommyettinger:textratypist:0.10.0"
     }
 }

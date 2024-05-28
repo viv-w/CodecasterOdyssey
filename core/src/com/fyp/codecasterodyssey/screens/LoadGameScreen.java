@@ -3,6 +3,7 @@ package com.fyp.codecasterodyssey.screens;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
@@ -11,6 +12,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.fyp.codecasterodyssey.CodecasterOdyssey;
 import com.fyp.codecasterodyssey.Constants;
 import com.fyp.codecasterodyssey.FileUtility;
+import com.fyp.codecasterodyssey.User;
+import com.fyp.codecasterodyssey.UI.BackgroundTable;
 import com.fyp.codecasterodyssey.UI.ReturnButton;
 
 public class LoadGameScreen extends BaseScreen {
@@ -31,21 +34,30 @@ public class LoadGameScreen extends BaseScreen {
 
         scrollTable = new Table();
         scrollTable.top();
-        ArrayList<String> saveList = FileUtility.getAllUsers();
-        if(!saveList.isEmpty()) {
-            for (String save : saveList) {
-                Table saveTable = new Table();
-                Label label = new Label(" " + save + " ", game.getSkin());
-                saveTable.add(label);
 
-                final String currentSave = save;
+        ArrayList<User> allUsers = FileUtility.getAllUsers();
+        if(!allUsers.isEmpty()) {
+            for (User user : allUsers) {
+                BackgroundTable saveTable = new BackgroundTable();
+                saveTable.setTouchable(Touchable.enabled);
+                saveTable.setBackgroundColour(1, 1, 1, 0.2f);
+                
+                Label username = new Label(user.getUsername(), game.getSkin());
+                saveTable.add(username).expandX().center();
+                saveTable.row();
+
+                Label path = new Label(" Path " + Integer.parseInt(user.getCurrentPath().substring(4)), game.getSkin());
+                saveTable.add(path).expandX().left();
+
+                final String currentSave = user.getUsername();
                 saveTable.addListener(new ClickListener() {
                     @Override
                     public void clicked(InputEvent event, float x, float y) {
                         setConfirmDialog(currentSave);
                     }
                 });
-                scrollTable.add(saveTable).pad(5);
+                
+                scrollTable.add(saveTable).minWidth(400).minHeight(100).pad(5);
                 scrollTable.row();
             }
 
@@ -61,7 +73,7 @@ public class LoadGameScreen extends BaseScreen {
             root.add(new Label(" no saves ", game.getSkin())).pad(5);
         }
 
-        stage.addActor(new ReturnButton(game, "menu"));
+        stage.addActor(new ReturnButton(game, stage, "menu"));
     }
 
     private void setConfirmDialog(String username) {

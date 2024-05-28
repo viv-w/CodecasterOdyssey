@@ -21,13 +21,12 @@
             {
                 "id": "spell01",
                 "content": [
-                    "To program means to give instructions to the computer, for example, play a certain sound, print something on the screen, or multiply two numbers.",
-                    "When there is a series of commands, we have a computer program (script), it describes a sequence of calculations, evaluations, iterations, and all kinds of similar operations, which aim to accomplish some result.",
-                    "The program is written in text format, which is called source code. It is written in a particular programming language. To write commands, we need to be familiar with the syntax and semantics of the language we'll be using, in our case - Java.",
-                    "Code Example:",
-                    "To print \"Hello world\", you can use the pre-defined Java command System.out.println(), to which you need to provide the text inside the parentheses that you'd like to be printed:",
-                    "System.out.println(\"Hello World\");",
-                    "The above statement is pre-built into Java, and it's used for printing a string. The statement tells the computer to output the string that's been provided to it, placed between the quotation marks. The statement ends with a semicolon ;"
+                    "To program means to give instructions to the computer, for example, [/]play a certain sound[/], [/]print something on the screen[/], or [/]multiply two numbers[/].",
+                    "When there is a series of commands, we have a computer program (script). Each command has one or more statements to form an instruction. Each statement tells the computer to perform a specific task, describing a sequence of calculations, evaluations, iterations, and all kinds of similar operations, which aim to accomplish some result.",
+                    "The program is written in text format, which is called [*]source code[*]. It is written in a particular programming language. To write commands, we need to be familiar with the [*]syntax and semantics of the language[*] we'll be using, in our case - [*]Java[*].",
+                    "For example, the pre-defined Java command [*][SHINE]System.out.println()[][*] can be used to print \"Hello world\", to which you need to provide the text inside the parentheses that you'd like to be printed:",
+                    "CODE_START[#dd4a68]System[silver].[black]out[silver].[#dd4a68]println[silver]([lime]\"Hello World\"[silver]);CODE_END",
+                    "The above statement is pre-built into Java, and it's used for printing a string. The statement tells the computer to output the string that's been provided to it, placed between the quotation marks. The statement ends with a semicolon [*][SHINE];"
                 ]
             },
             {
@@ -37,9 +36,9 @@
                     "input: System.out.println(\"Hello world\");",
                     "output: Hello world!",
                     "You can print any text you want with the command, as long as the command System.out.println(\"text\"); -i.e., System dot out dot println open parenthesis ( \"the text\" close parenthesis ) and semicolon ; remains unchanged.",
-                    "The command below will print the text \"Hello <username>!\".",
-                    "input: System.out.println(\"Hello <username>!\");",
-                    "output: Hello <username>!"
+                    "The command below will print the text \"Hello {VAR=USERNAME}!\".",
+                    "input: System.out.println(\"Hello {VAR=USERNAME}!\");",
+                    "output: Hello {VAR=USERNAME}!"
                 ]
             },
             {

@@ -1,0 +1,13 @@
+{
+    "class": "com.fyp.codecasterodyssey.events.Scene",
+    "id": "scene02",
+    "events": [
+        {
+            "class": "com.fyp.codecasterodyssey.events.TextEvent",
+            "type": "text",
+            "text": [
+                "Welcome to scene 2!"
+            ]
+        }
+    ]
+}

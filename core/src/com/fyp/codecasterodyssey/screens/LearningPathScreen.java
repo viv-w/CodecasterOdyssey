@@ -77,7 +77,7 @@ public class LearningPathScreen extends BaseScreen {
 
         updateUI(paths.get(0));
 
-        stage.addActor(new ReturnButton(game, "home"));
+        stage.addActor(new ReturnButton(game, stage, "home"));
 
         // TODO getRecommendedPath() - either > their current or first path
 

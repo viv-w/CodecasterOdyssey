@@ -1,10 +1,13 @@
 package com.fyp.codecasterodyssey.screens;
 
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import java.util.ArrayList;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -13,17 +16,18 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.fyp.codecasterodyssey.CodecasterOdyssey;
 import com.fyp.codecasterodyssey.Constants;
-import com.fyp.codecasterodyssey.FileUtility;
 import com.fyp.codecasterodyssey.LearningPath;
 import com.fyp.codecasterodyssey.User;
+import com.fyp.codecasterodyssey.UI.BackgroundTable;
 
 public class HomeScreen extends BaseScreen {
     
-    private Table root, leftTable, rightTable, spellTable, questTable, leaderboardTable;
+    private Table root, leftTable, rightTable;
+    private BackgroundTable spellTable, questTable, leaderboardTable;
     private TextButton startButton, pathButton, exitButton;
     private ProgressBar spellProgress, questProgress;
-    private Label greeting, spellLabel, questLabel, leaderboardLabel;
-    private User currentUser = game.getCurrentUser();
+    private Label spellLabel, questLabel, leaderboardLabel;
+    private User currentUser = game.getCurrentUser(); // TODO progress data 
 
     public HomeScreen(final CodecasterOdyssey codecasterOdyssey) {
         super(codecasterOdyssey);
@@ -39,11 +43,7 @@ public class HomeScreen extends BaseScreen {
         leftTable = new Table();
         root.add(leftTable).left();
 
-        greeting = new Label("Welcome, " + currentUser.getUsername(), game.getSkin());
-        leftTable.add(greeting).pad(5);
-        leftTable.row();
-        
-        startButton = new TextButton("Start Coding", game.getSkin());
+        startButton = new TextButton(" Start Game ", game.getSkin());
         startButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -53,17 +53,18 @@ public class HomeScreen extends BaseScreen {
         leftTable.add(startButton).pad(5);
         leftTable.row();
 
-        pathButton = new TextButton("Select Path", game.getSkin());
+        pathButton = new TextButton(" Select Path ", game.getSkin());
         pathButton.addListener(new ChangeListener() {
            @Override
            public void changed(ChangeEvent event, Actor actor) {
                 game.changeScreen(Constants.LEARNING_PATH);
            } 
         });
+        if(game.getCurrentUser().getCompletedScenes().isEmpty()) pathButton.setDisabled(true);
         leftTable.add(pathButton).pad(5);
         leftTable.row();
 
-        exitButton = new TextButton("Exit to Menu", game.getSkin());
+        exitButton = new TextButton(" Exit to Menu ", game.getSkin());
         exitButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -72,15 +73,28 @@ public class HomeScreen extends BaseScreen {
         });
         leftTable.add(exitButton).pad(5);
         leftTable.row();
+        stage.addListener(new InputListener() {
+            @Override
+            public boolean keyDown(InputEvent event, int keycode) {
+                if(keycode == Keys.ESCAPE) {
+                    game.changeScreen(Constants.MENU);
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
 
         // RIGHT SIDE OF UI
         rightTable = new Table();
         root.add(rightTable).right();
 
         // Spell Progress
-        spellTable = new Table();
+        spellTable = new BackgroundTable();
+        spellTable.setTouchable(Touchable.enabled);
+        spellTable.setBackgroundColour(1, 1, 1, 0.2f);
         spellLabel = new Label("Spell Collection", game.getSkin());
-        spellTable.add(spellLabel);
+        spellTable.add(spellLabel).pad(2);
         spellTable.row();
         spellProgress = new ProgressBar(0, 100, 1, false, game.getSkin());
 
@@ -103,13 +117,16 @@ public class HomeScreen extends BaseScreen {
                 game.changeScreen(Constants.SPELL_PROGRESS);
             }
         });
-        rightTable.add(spellTable).pad(5);
+        rightTable.add(spellTable).pad(5).minWidth(230);
         rightTable.row();
 
         // Quest Progress
-        questTable = new Table();
+        // TODO progress bar is repeated. make a class instead
+        questTable = new BackgroundTable();
+        questTable.setTouchable(Touchable.enabled);
+        questTable.setBackgroundColour(1, 1, 1, 0.2f);
         questLabel = new Label("Quest Collection", game.getSkin());
-        questTable.add(questLabel);
+        questTable.add(questLabel).pad(2);
         questTable.row();
         questProgress = new ProgressBar(0, 100, 1, false, game.getSkin());
 
@@ -131,21 +148,30 @@ public class HomeScreen extends BaseScreen {
                 game.changeScreen(Constants.QUEST_PROGRESS);
             }
         });
-        rightTable.add(questTable).pad(5);
+        rightTable.add(questTable).pad(5).minWidth(230);
         rightTable.row();
 
         // Leaderboard
-        leaderboardTable = new Table();
+        leaderboardTable = new BackgroundTable();
+        leaderboardTable.setTouchable(Touchable.enabled);
+        leaderboardTable.setBackgroundColour(1, 1, 1, 0.2f);
         leaderboardLabel = new Label("Leaderboard", game.getSkin());
-        leaderboardTable.add(leaderboardLabel).pad(1);
+        leaderboardTable.add(leaderboardLabel).colspan(3).pad(2);
         leaderboardTable.row();
-        ArrayList<String> userNames = FileUtility.getAllUsers();
-        for (int i = 0; i < userNames.size() && i < 5; i++) {
-            CharSequence leaderboard = String.format("#%-5d %-20s %5s", i+1, userNames.get(i), "0%");
-            Label label = new Label(leaderboard, game.getSkin());
-            leaderboardTable.add(label).pad(1);
+
+        // TODO ranking
+        ArrayList<User> users = game.getAllUsers();
+        for (int i = 0; i < users.size() && i < 5; i++) {
+            float processPrecentage = ((completedQuests + collectedSpells) / (totalQuests + totalSpells)) * 100;
+
+            Label rankLabel = new Label(String.format(" #%d ", i+1), game.getSkin());
+            Label usernameLabel = new Label(users.get(i).getUsername(), game.getSkin());
+            Label percentageLabel = new Label(String.format("%5.2f%% ", processPrecentage), game.getSkin());
+
+            leaderboardTable.add(rankLabel).left().pad(3);
+            leaderboardTable.add(usernameLabel).left().expandX().pad(3);
+            leaderboardTable.add(percentageLabel).right().pad(3);
             leaderboardTable.row();
-            // FIXME alignment problem
 
         }
         leaderboardTable.addListener(new ClickListener() {
@@ -154,7 +180,7 @@ public class HomeScreen extends BaseScreen {
                 game.changeScreen(Constants.LEADERBOARD);
             }
         });
-        rightTable.add(leaderboardTable).pad(5);
+        rightTable.add(leaderboardTable).minWidth(230).pad(5);
 
     }
 }

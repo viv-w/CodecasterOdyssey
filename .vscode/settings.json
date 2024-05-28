@@ -1,3 +1,6 @@
 {
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.project.sourcePaths": [
+        "desktop\\src, core\\src, "
+    ],
+    "java.gradle.buildServer.enabled": "off"
 }

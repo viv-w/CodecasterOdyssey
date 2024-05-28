@@ -20,7 +20,7 @@ public abstract class BaseScreen extends ScreenAdapter {
     public void show() {
         stage.clear();
         setupUI();
-        Gdx.input.setInputProcessor(stage); // FIXME do we need resume() and dispose()?
+        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
@@ -33,6 +33,11 @@ public abstract class BaseScreen extends ScreenAdapter {
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
+    }
+
+    @Override
+    public void dispose() {
+        stage.dispose();
     }
 
     protected abstract void setupUI();
