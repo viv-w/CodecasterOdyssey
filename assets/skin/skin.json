@@ -436,6 +436,10 @@
     "white": {
       "font": "default",
       "fontColor": "white"
+    },
+    "black": {
+      "font": "default",
+      "fontColor": "black"
     }
   },
   "com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle": {
@@ -581,9 +585,22 @@
   },
   "com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle": {
     "default": {
-      "font": "codeFont",
+      "font": "default",
       "messageFont": "default",
       "fontColor": "font",
+      "focusedFontColor": "fontOver",
+      "disabledFontColor": "fontDisabled",
+      "messageFontColor": "fontDown",
+      "background": "textField",
+      "focusedBackground": "textFieldDown",
+      "disabledBackground": "textFieldDisabled",
+      "cursor": "textFieldCursor",
+      "selection": "selection"
+    },
+    "codeArea": {
+      "font": "codeFont",
+      "messageFont": "codeFont",
+      "fontColor": "black",
       "focusedFontColor": "fontOver",
       "disabledFontColor": "fontDisabled",
       "messageFontColor": "fontDown",

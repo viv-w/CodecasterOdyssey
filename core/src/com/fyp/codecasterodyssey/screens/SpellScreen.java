@@ -31,6 +31,7 @@ public class SpellScreen extends BaseScreen {
     protected void setupUI() {
         root = new Table();
         root.setFillParent(true);
+        root.top();
         stage.addActor(root);
 
         ArrayList<String> spells = game.getCurrentUser().getCollectedSpells();
@@ -46,11 +47,11 @@ public class SpellScreen extends BaseScreen {
                     updateUI(spells.get(spellSelect.getSelectedIndex()));
                 }
             });
-            // root.add(spellSelect);
-            // root.row();
+            root.add(spellSelect).pad(5);
+            root.row();
 
             contentTable = new BackgroundTable();
-            //contentTable.setBackgroundColour(0.73f, 0.58f, 0.47f, 1.0f);
+            // contentTable.setBackgroundColour(0.9f, 0.9f, 0.9f, 0.9f);
             scrollPane = new ScrollPane(contentTable, game.getSkin());
             scrollPane.setFadeScrollBars(false);
             scrollPane.setFlickScroll(false);
@@ -74,7 +75,8 @@ public class SpellScreen extends BaseScreen {
 
     private void updateUI(String spellId) {
 
-        
+        contentTable.clear();
+
         Spell spell = null;
         for(Spell tSpell : game.getAllSpells()) {
             if(tSpell.getId().equals(spellId))
@@ -93,6 +95,7 @@ public class SpellScreen extends BaseScreen {
                 line = line.replace("CODE_START", "").trim();
             }
 
+            // TODO auto syntax highlight
             if(isCode) {
                 if(line.contains("CODE_END")) {
                     line = line.replace("CODE_END", "").trim();

@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.fyp.codecasterodyssey.CodecasterOdyssey;
-import com.fyp.codecasterodyssey.Constants;
+import com.fyp.codecasterodyssey.CodecasterOdyssey.ScreenType;
 import com.fyp.codecasterodyssey.FileUtility;
 import com.fyp.codecasterodyssey.User;
 import com.fyp.codecasterodyssey.UI.ReturnButton;
@@ -97,7 +97,7 @@ public class NewGameScreen extends BaseScreen {
 
     private void setConfirmDialog(String username) {
         final String tempUsername = username;
-        Dialog confirmDialog = new Dialog(" Username Confirmation", game.getSkin()) {
+        Dialog confirmDialog = new Dialog(" Username Confirmation ", game.getSkin()) {
             @Override
             protected void result(Object object) {
                 boolean confirm = (Boolean) object;
@@ -106,7 +106,7 @@ public class NewGameScreen extends BaseScreen {
                     User user = new User(tempUsername);
                     game.getAllUsers().add(user);
                     game.setCurrentUser(user);
-                    game.changeScreen(Constants.HOME);
+                    game.changeScreen(ScreenType.HOME);
 
                 }
             }

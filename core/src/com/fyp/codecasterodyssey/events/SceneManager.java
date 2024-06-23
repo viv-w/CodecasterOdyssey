@@ -6,8 +6,9 @@ import com.fyp.codecasterodyssey.CodecasterOdyssey;
 public class SceneManager {
     private CodecasterOdyssey game;
     private Table gameView;
-    private Scene scene;
-    private static int index = 0;
+    private Scene currentScene;
+    private Event currentEvent;
+    private int index = 0;
 
     public SceneManager(CodecasterOdyssey game) {
         this.game = game;
@@ -18,12 +19,10 @@ public class SceneManager {
     }
 
     public void load(String sceneId) {
-        for(Scene tScene : game.getAllScenes()) {
-            if(tScene.getId().equals(sceneId))
-                scene = tScene;
-        }
+        this.currentScene = searchScene(sceneId);
 
-        for (Event event : scene.getEvents()) {
+        for (Event event : currentScene.getEvents()) {
+            event.setScene(currentScene);
             event.setupGame(game, gameView);
             event.setNextSequence(() -> nextSequence());
         }
@@ -31,13 +30,56 @@ public class SceneManager {
         nextSequence();
     }
 
-    protected static void updateIndex() {
+    public void loadNext() {
+        if(this.currentScene.isComplete()) {
+            String nextScene = currentScene.getNextId();
+            load(nextScene);
+        }
+    }
+
+    public void loadNext(String sceneId) {
+
+        if (this.currentScene == null)
+            this.currentScene = searchScene(sceneId);
+
+        String nextScene = currentScene.getNextId();
+        load(nextScene);
+    }
+
+    private Scene searchScene(String sceneId) {
+
+        for (Scene s : game.getAllScenes()) {
+            if (s.getId().equals(sceneId)) {
+                return s;
+            }
+        }
+
+        return null;
+    }
+
+    public void updateIndex() {
         index++;
     }
 
     private void nextSequence() {
-        if(index < scene.getEvents().size()) { // ensure manager does not go over index
-            scene.getEvents().get(index).execute();
+        if(index < currentScene.getEvents().size()) {
+            currentEvent = currentScene.getEvents().get(index);
+            currentScene.getEvents().get(index).execute();
+        } else {
+            if(currentScene.getNextId() != null) {
+                index = 0;
+                game.getCurrentUser().addCompletedScene(currentScene.getId());
+                currentScene.setCompleted(true);
+                loadNext();
+            }
         }
+    }
+
+    public Event getCurrentEvent() {
+        return currentEvent;
+    }
+
+    public Scene getCurrentScene() {
+        return currentScene;
     }
 }

@@ -10,17 +10,17 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.fyp.codecasterodyssey.CodecasterOdyssey;
 import com.fyp.codecasterodyssey.LearningPath;
-import com.fyp.codecasterodyssey.Quest;
+import com.fyp.codecasterodyssey.Spell;
 import com.fyp.codecasterodyssey.UI.ReturnButton;
 
-public class LearningPathScreen extends BaseScreen {
+public class SelectPathScreen extends BaseScreen {
 
     private Table root;
     private Label currentPathLabel, instructionLabel, descLabel, questsLabel;
     private SelectBox<String> pathSelect;
     private TextButton confirmButton;
 
-    public LearningPathScreen(final CodecasterOdyssey codecasterOdyssey) {
+    public SelectPathScreen(final CodecasterOdyssey codecasterOdyssey) {
         super(codecasterOdyssey);
     }
     
@@ -88,9 +88,9 @@ public class LearningPathScreen extends BaseScreen {
 
         descLabel.setText(path.getDesc());
 
-        StringBuilder questsBuilder = new StringBuilder();
-        for(Quest quest: path.getQuests())
-            questsBuilder.append(quest.getName()).append("\n");
-        questsLabel.setText(questsBuilder.toString());
+        StringBuilder spellsBuilder = new StringBuilder();
+        for(Spell spell: path.getSpells())
+            spellsBuilder.append(spell.getName()).append("\n");
+        questsLabel.setText(spellsBuilder.toString());
     }
 }

@@ -10,6 +10,7 @@ import com.fyp.codecasterodyssey.CodecasterOdyssey;
 public abstract class BaseScreen extends ScreenAdapter {
     protected final CodecasterOdyssey game;
     protected final Stage stage;
+    protected long startTime;
 
     public BaseScreen(final CodecasterOdyssey codecasterOdyssey) {
         game = codecasterOdyssey;
@@ -21,6 +22,18 @@ public abstract class BaseScreen extends ScreenAdapter {
         stage.clear();
         setupUI();
         Gdx.input.setInputProcessor(stage);
+        if(game.getCurrentUser() != null) {
+            startTime = System.currentTimeMillis();
+        }
+    }
+
+    @Override
+    public void hide() {
+        if(game.getCurrentUser() != null && startTime != 0) {
+            long endTime = System.currentTimeMillis();
+            game.getCurrentUser().addPlaytime(endTime - startTime);
+            startTime = 0;
+        }
     }
 
     @Override

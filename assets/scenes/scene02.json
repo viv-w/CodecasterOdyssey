@@ -8,6 +8,13 @@
             "text": [
                 "Welcome to scene 2!"
             ]
+        },
+        {
+            "class": "com.fyp.codecasterodyssey.events.TextEvent",
+            "type": "text",
+            "text": [
+                "AUGHHHHH"
+            ]
         }
     ]
 }

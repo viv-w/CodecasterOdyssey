@@ -5,21 +5,18 @@
         "description": "Take a look into codecasting (programming) and some fundamental concepts:",
         "quests": [
             {
-                "id": "quest01",
-                "name": "Getting started with programming"
-            },
-            {
-                "id": "quest02",
-                "name": "Printing"
-            },
-            {
-                "id": "quest03",
-                "name": "Reading input"
+                "id": "quest101",
+                "name": "Getting started with programming",
+                "content": [
+                    "Modify the code so that it will print the following text:",
+                    "OUTPUT_STARTHello Mundur!OUTPUT_END"
+                ]
             }
         ],
         "spells": [
             {
-                "id": "spell01",
+                "id": "spell101",
+                "name": "Getting started with programming",
                 "content": [
                     "To program means to give instructions to the computer, for example, [/]play a certain sound[/], [/]print something on the screen[/], or [/]multiply two numbers[/].",
                     "When there is a series of commands, we have a computer program (script). Each command has one or more statements to form an instruction. Each statement tells the computer to perform a specific task, describing a sequence of calculations, evaluations, iterations, and all kinds of similar operations, which aim to accomplish some result.",
@@ -30,7 +27,8 @@
                 ]
             },
             {
-                "id": "spell02",
+                "id": "spell102",
+                "name": "Printing",
                 "content": [
                     "The print command System.out.println(\"Hello world\"); prints the text \"Hello world.\"",
                     "input: System.out.println(\"Hello world\");",
@@ -40,48 +38,17 @@
                     "input: System.out.println(\"Hello {VAR=USERNAME}!\");",
                     "output: Hello {VAR=USERNAME}!"
                 ]
-            },
-            {
-                "id": "spell03",
-                "content": [
-                    "SPELL 3 CONTENT HERE"
-                ]
             }
         ]
     },
     {
         "class": "com.fyp.codecasterodyssey.LearningPath",
         "id": "path02",
-        "description": "Get familiar with more fundamental concepts:",
-        "quests": [
-            {
-                "id": "quest04",
-                "name": "Variables"
-            },
-            {
-                "id": "quest05",
-                "name": "Calculating with numbers"
-            },
-            {
-                "id": "quest06",
-                "name": "Conditional statements and conditional operation"
-            }
-        ],
+        "description": "Get familiar with conditionals",
         "spells": [
             {
-                "id": "spell04",
-                "content": [
-                    "SPELL CONTENT HERE"
-                ]
-            },
-            {
-                "id": "spell05",
-                "content": [
-                    "SPELL CONTENT HERE"
-                ]
-            },
-            {
-                "id": "spell06",
+                "id": "spell201",
+                "name": "Conditional statements and conditional operations",
                 "content": [
                     "SPELL CONTENT HERE"
                 ]

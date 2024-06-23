@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 public class Spell {
     private String id;
+    private String name;
     private ArrayList<String> content = new ArrayList<>();
+    private ArrayList<String> quests = new ArrayList<>();
     
     public Spell() {}
 
@@ -17,7 +19,15 @@ public class Spell {
         return id;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public ArrayList<String> getContent() {
         return content;
+    }
+
+    public ArrayList<String> getQuests() {
+        return quests;
     }
 }

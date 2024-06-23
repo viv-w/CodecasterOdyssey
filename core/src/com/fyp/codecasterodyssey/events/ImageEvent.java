@@ -26,7 +26,7 @@ public class ImageEvent extends Event {
             Actions.fadeIn(duration - 2f),
             Actions.delay(duration),
             Actions.fadeOut(duration - 1f),
-            Actions.delay(duration),
+            Actions.delay(duration - 2f),
             Actions.run(() -> {
                 gameView.removeActor(image);
                 complete();

@@ -2,38 +2,9 @@
     "class": "com.fyp.codecasterodyssey.events.Scene",
     "id": "scene01",
     "nextId": "scene02",
-    "quest": "quest01",
-    "spell": "spell01",
+    "spell": "spell101",
+    "quest": "quest101",
     "events": [
-        {
-            "class": "com.fyp.codecasterodyssey.events.TextEvent",
-            "type": "text",
-            "text": [
-                "From as far as I can remember, I have always been drawn to the art of codecasting.",
-                "Enchanted words inscribed upon scrolls, weaving the fabric of our daily lives.",
-                "Growing up in the village of Codehaven, I would often find myself in the vicinity of the codecasters, quietly observing them at work.",
-                "From the mundane task of tallying pastries fresh from the oven to creating a self-sustaining farm, the possibilites of codecasting seemed to know no bounds. ",
-                "On a particular day, however, a voice suddenly appeared behind me, starling me from my usual observation.",
-                "\"Watching the codecasters at work again, are you?\"",
-                "I turned to find the esteemed codecaster Mundur, his gaze warm and welcoming.",
-                "\"I can see your keen fascination for codecasting.\"",
-                "His words lingered in the silence between us.",
-                "\"The path of codecasting offers more than meets the eye. Are you willing to do more than simply observe?\"",
-                "Though nervous, I nodded eagerly, my heart racing at the possibility of becoming a codecaster.",
-                "A gentle smile graced his face.",
-                "From the folds of his robe, he retrieved a thick leatherbound tome.",
-                "\"Within these pages lies the knowledge of codecasting.\"",
-                "\"Study it well, for the road ahead will be filled with challenges, but also opportunities for growth.\"",
-                "From the moment the tome settled into my trembling hands, {SPEED=0.3}I knew...",
-                "This marked the beginning of my codecasting {SPEED=0.3}odyssey..."
-            ]
-        },
-        {
-            "class": "com.fyp.codecasterodyssey.events.ImageEvent",
-            "type": "image",
-            "path": "image/logo.png",
-            "duration": 3
-        },
         {
             "class": "com.fyp.codecasterodyssey.events.TextEvent",
             "type": "text",
@@ -48,7 +19,34 @@
             "speaker": "Mundur",
             "text": [
                 "Ah, {VAR=USERNAME}, you're here.",
-                "ohohoho"
+                "(explain the world of codecasting)"
+            ]
+        },
+        {
+            "class": "com.fyp.codecasterodyssey.events.UnlockEvent",
+            "type": "unlock",
+            "isSpell": true
+        },
+        {
+            "class": "com.fyp.codecasterodyssey.events.TextEvent",
+            "type": "text",
+            "text": [
+                "(more explaination)"
+            ]
+        },
+        {
+            "class": "com.fyp.codecasterodyssey.events.UnlockEvent",
+            "type": "unlock",
+            "isSpell": false
+        },
+        {
+            "class": "com.fyp.codecasterodyssey.events.QuestEvent"
+        },
+        {
+            "class": "com.fyp.codecasterodyssey.events.TextEvent",
+            "type": "text",
+            "text": [
+                "{JOLT} that is about it"
             ]
         }
     ]

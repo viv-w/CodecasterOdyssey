@@ -1,6 +1,8 @@
 package com.fyp.codecasterodyssey;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -12,8 +14,9 @@ public class FileUtility {
 
     // User JSON Management
     private static final String SAVEDATA = "savedata/";
-    private static final String PROFILE = "Profile_";
-    private static final String JSON = ".json";
+    // private static final String SOLUTIONS = "solutions/";
+    private static final String PROFILE_JSON = "profile.json";
+    private static final String JSON_EXTENSION = ".json";
 
     public static ArrayList<User> getAllUsers() {
         ArrayList<User> users = new ArrayList<>();
@@ -21,43 +24,66 @@ public class FileUtility {
         if(!Gdx.files.local(SAVEDATA).isDirectory())
             Gdx.files.local(SAVEDATA).mkdirs();
             
-        FileHandle[] files = Gdx.files.local(SAVEDATA).list();
+        FileHandle[] userFolders = Gdx.files.local(SAVEDATA).list(file -> file.isDirectory());
 
-        for (FileHandle file : files) {
-            Json json = new Json();
-            users.add(json.fromJson(User.class, file));
+        for (FileHandle userFolder : userFolders) {
+            FileHandle profileFile = Gdx.files.local(userFolder.path() + "/" + PROFILE_JSON);
+            
+            if(profileFile.exists()) {
+                Json json = new Json();
+                users.add(json.fromJson(User.class, profileFile));
+            }
         }
 
         return users;
     }
 
     public static boolean isUserExist(String username) {
-        return Gdx.files.local(SAVEDATA + PROFILE + username + JSON).exists();
+        return Gdx.files.local(SAVEDATA + username + "/").exists();
     }
 
-    // FIXME I might need to make a folder for each user (store their solutions?)
     public static void updateUserJSON(User user) {
+
+        String userFolderPath = SAVEDATA + user.getUsername() + "/";
+        FileHandle userFolder = Gdx.files.local(userFolderPath);
+
+        if(!userFolder.exists()) {
+            userFolder.mkdirs();
+        }
+
+        // for saving
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        user.setLastSaved(sdf.format(new Date()));
+
         Json json = new Json();
         json.setOutputType(OutputType.json);
 
         String jsonStr = json.prettyPrint(user);
-        FileHandle file = Gdx.files.local(SAVEDATA + PROFILE + user.getUsername() + JSON);
-        file.writeString(jsonStr, false);
+        FileHandle profileFile = Gdx.files.local(userFolderPath + PROFILE_JSON);
+        profileFile.writeString(jsonStr, false);
     }
 
     public static User loadUserJSON(String username) {
-        FileHandle file = Gdx.files.local(SAVEDATA + PROFILE + username + JSON);
+        String userFolderPath = SAVEDATA + username + "/";
+        FileHandle profileFile = Gdx.files.local(userFolderPath + PROFILE_JSON);
+
+        if(!profileFile.exists()) {
+            return null; // FIXME give error dialog?
+        }
+
         Json json = new Json();
-        User user = json.fromJson(User.class, file);
+        User user = json.fromJson(User.class, profileFile);
 
         return user;
     }
+
+    // TODO Solutions .txt Management
 
     // LearningPath JSON Management
     @SuppressWarnings("unchecked")
     public static ArrayList<LearningPath> getAllPaths() {
 
-        FileHandle file = Gdx.files.internal("paths" + JSON);
+        FileHandle file = Gdx.files.internal("paths" + JSON_EXTENSION);
         Json json = new Json();
         ArrayList<LearningPath> paths = json.fromJson(ArrayList.class, LearningPath.class, file);
 

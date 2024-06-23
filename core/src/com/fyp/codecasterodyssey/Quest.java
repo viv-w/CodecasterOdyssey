@@ -1,8 +1,11 @@
 package com.fyp.codecasterodyssey;
 
+import java.util.ArrayList;
+
 public class Quest {
     private String id;
     private String name;
+    private ArrayList<String> content = new ArrayList<>();
 
     public Quest() {}
 
@@ -17,5 +20,9 @@ public class Quest {
 
     public String getName() {
         return name;
+    }
+
+    public ArrayList<String> getContent() {
+        return content;
     }
 }

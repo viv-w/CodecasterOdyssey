@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.fyp.codecasterodyssey.CodecasterOdyssey;
-import com.fyp.codecasterodyssey.Constants;
+import com.fyp.codecasterodyssey.CodecasterOdyssey.ScreenType;
 import com.fyp.codecasterodyssey.FileUtility;
 import com.fyp.codecasterodyssey.User;
 import com.fyp.codecasterodyssey.UI.BackgroundTable;
@@ -20,7 +20,7 @@ public class LoadGameScreen extends BaseScreen {
 
     private Table root, scrollTable;
     private ScrollPane scrollPane;
-    // + exportButton if files not in .prefs? 
+    // exportButton?
 
     public LoadGameScreen(final CodecasterOdyssey codecasterOdyssey) {
         super(codecasterOdyssey);
@@ -29,8 +29,8 @@ public class LoadGameScreen extends BaseScreen {
     @Override
     protected void setupUI() {
         root = new Table();
-        stage.addActor(root);
         root.setFillParent(true);
+        stage.addActor(root);
 
         scrollTable = new Table();
         scrollTable.top();
@@ -48,6 +48,19 @@ public class LoadGameScreen extends BaseScreen {
 
                 Label path = new Label(" Path " + Integer.parseInt(user.getCurrentPath().substring(4)), game.getSkin());
                 saveTable.add(path).expandX().left();
+                saveTable.row();
+
+                Label lastSaved = new Label(" Last Saved: " + user.getLastSaved(), game.getSkin());
+                saveTable.add(lastSaved).left();
+                saveTable.row();
+
+                Label playTime = new Label(" Play Time: " + user.getFormattedPlaytime(), game.getSkin());
+                saveTable.add(playTime).left();
+                saveTable.row();
+
+                Label progressPercentage = new Label(" Total Progress: " + user.getProgressPercentage(game.getAllSpells().size(), game.getAllQuests().size()) + "%", game.getSkin());
+                saveTable.add(progressPercentage).left();
+                saveTable.row();
 
                 final String currentSave = user.getUsername();
                 saveTable.addListener(new ClickListener() {
@@ -84,7 +97,7 @@ public class LoadGameScreen extends BaseScreen {
                 boolean confirm = (Boolean) object;
                 if (confirm) {
                     game.setCurrentUser(FileUtility.loadUserJSON(tempUsername));
-                    game.changeScreen(Constants.HOME);
+                    game.changeScreen(ScreenType.HOME);
                 }
             }
             

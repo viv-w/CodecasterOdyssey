@@ -5,10 +5,11 @@ import java.util.ArrayList;
 public class Scene {
     
     private String id;
-    private String nextId; // TODO decide how to trigger the next scene. immediately after a scene? or... need a trigger... e.g. talk to NPC (but...)
+    private String nextId; 
     private String spell;
     private String quest;
     private ArrayList<Event> events;
+    private boolean isCompleted;
 
     public Scene() {}
 
@@ -30,5 +31,13 @@ public class Scene {
 
     public ArrayList<Event> getEvents() {
         return events;
+    }
+
+    public void setCompleted(boolean b) {
+        isCompleted = b;
+    }
+
+    public boolean isComplete() {
+        return isCompleted;
     }
 }

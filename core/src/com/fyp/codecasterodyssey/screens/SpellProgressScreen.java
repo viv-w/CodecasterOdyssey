@@ -2,19 +2,20 @@ package com.fyp.codecasterodyssey.screens;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.fyp.codecasterodyssey.CodecasterOdyssey;
 import com.fyp.codecasterodyssey.LearningPath;
+import com.fyp.codecasterodyssey.Spell;
 import com.fyp.codecasterodyssey.UI.BackgroundTable;
+import com.fyp.codecasterodyssey.UI.ProgressBarTable;
 import com.fyp.codecasterodyssey.UI.ReturnButton;
-import com.github.tommyettinger.textra.TypingLabel;
 
 public class SpellProgressScreen extends BaseScreen {
 
-    private Table root;
+    private Table root, scrollTable;
+    private ScrollPane scrollPane;
     private BackgroundTable spellTable;
-    private Label spellLabel;
-    private ProgressBar spellProgress;
 
     public SpellProgressScreen(CodecasterOdyssey codecasterOdyssey) {
         super(codecasterOdyssey);
@@ -23,34 +24,56 @@ public class SpellProgressScreen extends BaseScreen {
     @Override
     protected void setupUI() {
         root = new Table();
+        root.top();
         root.setFillParent(true);
         stage.addActor(root);
 
-        spellTable = new BackgroundTable();
-        spellTable.setBackgroundColour(1, 1, 1, 0.2f);
-        spellLabel = new Label("Spell Collection", game.getSkin());
-        spellTable.add(spellLabel).pad(2);
-        spellTable.row();
-        spellProgress = new ProgressBar(0, 100, 1, false, game.getSkin());
-        spellProgress.setValue(0);
-        spellTable.add(spellProgress).pad(5);
-        root.add(spellTable).top();
+        spellTable = new ProgressBarTable(game, false, true);
+        root.add(spellTable).pad(10);
         root.row();
 
         if(!game.getCurrentUser().getCollectedSpells().isEmpty()) {
-            float totalSpells = 0;
-            float collectedSpells = 0;
+
+            scrollTable = new Table();
+            scrollTable.top();
+
             for (LearningPath path : game.getAllPaths()) {
-                if (!path.getSpells().isEmpty()) {
-                    totalSpells += path.getSpells().size();
+                int totalSpellsPP = path.getSpells().size();
+                int userSpellsPP = 0;
+
+                for (String spellId : game.getCurrentUser().getCollectedSpells()) {
+                    for(Spell spell: path.getSpells()) {
+                        if(spellId.contains(spell.getId()))
+                            userSpellsPP++;
+                    }
                 }
+
+                float spellPercentage = ((float) userSpellsPP / totalSpellsPP) * 100;
+
+                BackgroundTable spellPPTable = new BackgroundTable();
+                spellPPTable.setBackgroundColour(1, 1, 1, 0.2f);
+
+                Label spellLabel = new Label(" Path " + path.getNum(), game.getSkin());
+                ProgressBar spellBar = new ProgressBar(0, 100, 1, false, game.getSkin());
+                Label spellPercentageLabel = new Label(Math.round(spellPercentage) + "%", game.getSkin());
+                spellBar.setValue(Math.round(spellPercentage));
+                spellPPTable.add(spellLabel).pad(2).left();
+                spellPPTable.add(spellBar).pad(2);
+                spellPPTable.add(spellPercentageLabel).pad(2).right();
+                scrollTable.add(spellPPTable).minWidth(300).minHeight(50).pad(5);
+                scrollTable.row();
             }
-            if (!game.getCurrentUser().getCollectedSpells().isEmpty())
-                collectedSpells = (game.getCurrentUser().getCollectedSpells().size() / totalSpells) * 100;
-            spellProgress.setValue(collectedSpells);
+
+            scrollPane = new ScrollPane(scrollTable, game.getSkin());
+            scrollPane.setFadeScrollBars(false);
+            scrollPane.setFlickScroll(false);
+            scrollPane.setScrollingDisabled(true, false);
+            scrollPane.validate();
+            root.add(scrollPane).prefHeight(200).minWidth(300).pad(5);
+            root.row();
+
         } else {
-            TypingLabel noSpell = new TypingLabel("no spells collected", game.getSkin());
-            noSpell.skipToTheEnd();
+            Label noSpell = new Label("no spells collected", game.getSkin());
             root.add(noSpell).minHeight(250);
         }
 

@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.fyp.codecasterodyssey.CodecasterOdyssey;
-import com.fyp.codecasterodyssey.Constants;
+import com.fyp.codecasterodyssey.CodecasterOdyssey.ScreenType;
 
 public class MenuScreen extends BaseScreen {
     
@@ -30,7 +30,7 @@ public class MenuScreen extends BaseScreen {
         newButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.changeScreen(Constants.NEWGAME);
+                game.changeScreen(ScreenType.NEWGAME);
             }
         });
 
@@ -40,7 +40,7 @@ public class MenuScreen extends BaseScreen {
         loadButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                game.changeScreen(Constants.LOADGAME);
+                game.changeScreen(ScreenType.LOADGAME);
             }
         });
 
@@ -51,7 +51,7 @@ public class MenuScreen extends BaseScreen {
         // testButton.addListener(new ChangeListener() {
         //     @Override
         //     public void changed(ChangeEvent event, Actor actor) {
-        //         game.changeScreen(Constants.DEBUG);
+        //         game.changeScreen(ScreenType.DEBUG);
         //     }
         // });
     }

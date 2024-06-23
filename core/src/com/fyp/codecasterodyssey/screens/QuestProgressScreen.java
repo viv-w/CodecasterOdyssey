@@ -1,20 +1,23 @@
 package com.fyp.codecasterodyssey.screens;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.fyp.codecasterodyssey.CodecasterOdyssey;
 import com.fyp.codecasterodyssey.LearningPath;
+import com.fyp.codecasterodyssey.Quest;
+import com.fyp.codecasterodyssey.User;
 import com.fyp.codecasterodyssey.UI.BackgroundTable;
+import com.fyp.codecasterodyssey.UI.ProgressBarTable;
 import com.fyp.codecasterodyssey.UI.ReturnButton;
-import com.github.tommyettinger.textra.TypingLabel;
 
 public class QuestProgressScreen extends BaseScreen {
 
-    private Table root;
-    private BackgroundTable questTable;
-    private Label questLabel;
-    private ProgressBar questProgress;
+    private Table root, scrollTable;
+    private ScrollPane scrollPane;
+    private BackgroundTable overallQuestTable;
 
     public QuestProgressScreen(CodecasterOdyssey codecasterOdyssey) {
         super(codecasterOdyssey);
@@ -23,35 +26,55 @@ public class QuestProgressScreen extends BaseScreen {
     @Override
     protected void setupUI() {
         root = new Table();
+        root.top();
         root.setFillParent(true);
         stage.addActor(root);
 
-        questTable = new BackgroundTable();
-        questTable.setBackgroundColour(1, 1, 1, 0.2f);
-        questLabel = new Label("Quest Completion", game.getSkin());
-        questTable.add(questLabel).pad(2);
-        questTable.row();
-        questProgress = new ProgressBar(0, 100, 1, false, game.getSkin());
-        questProgress.setValue(0);
-        questTable.add(questProgress).pad(5);
-        root.add(questTable).top();
+        overallQuestTable = new ProgressBarTable(game, false, false);
+        root.add(overallQuestTable).pad(10);
         root.row();
 
-        if(!game.getCurrentUser().getCollectedSpells().isEmpty()) {
-            float totalQuests = 0;
-            float completedQuests = 0;
+        User user = game.getCurrentUser();
+        if(!user.getCompletedQuests().isEmpty()) {
+            scrollTable = new Table();
+            scrollTable.top();
+
+            ArrayList<String> allQuests = new ArrayList<>();
+            allQuests.addAll(user.getCompletedQuests());
+            if(user.getCurrentQuest() != null) allQuests.add(user.getCurrentQuest());
+
             for (LearningPath path : game.getAllPaths()) {
-                if (!path.getQuests().isEmpty())
-                    totalQuests += path.getQuests().size();
+                for(String questId : allQuests) {
+                    for(Quest quest : path.getQuests()) {
+                        if(questId.contains(quest.getId())) {
+
+                            BackgroundTable questTable = new BackgroundTable();
+                            questTable.setBackgroundColour(1, 1, 1, 0.2f);
+
+                            String questStr = quest.getId().toUpperCase() + ": " + quest.getName();
+                            Label questLabel = new Label(questStr , game.getSkin());
+                            
+                            // TODO timetaken, status (just check if last of allQuests), hint used
+                            
+                            questTable.add(questLabel).pad(2).left();
+                            scrollTable.add(questTable).minWidth(400).minHeight(75).pad(5);
+                            scrollTable.row();
+
+                        }
+                    }
+                }
             }
 
-            if (!game.getCurrentUser().getCompletedQuests().isEmpty())
-                completedQuests = (game.getCurrentUser().getCompletedQuests().size() / totalQuests) * 100;
-            
-            questProgress.setValue(completedQuests);
+            scrollPane = new ScrollPane(scrollTable, game.getSkin());
+            scrollPane.setFadeScrollBars(false);
+            scrollPane.setFlickScroll(false);
+            scrollPane.setScrollingDisabled(true, false);
+            scrollPane.validate();
+            root.add(scrollPane).prefHeight(200).minWidth(300).pad(5);
+            root.row();
+                    
         } else {
-            TypingLabel noQuest = new TypingLabel("no quests completed", game.getSkin());
-            noQuest.skipToTheEnd();
+            Label noQuest = new Label("no quests completed", game.getSkin());
             root.add(noQuest).minHeight(250);
         }
 

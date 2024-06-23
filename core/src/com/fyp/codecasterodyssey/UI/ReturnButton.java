@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.fyp.codecasterodyssey.CodecasterOdyssey;
-import com.fyp.codecasterodyssey.Constants;
+import com.fyp.codecasterodyssey.CodecasterOdyssey.ScreenType;
 
 public class ReturnButton extends Table {
 
@@ -33,9 +33,9 @@ public class ReturnButton extends Table {
             
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if (menu.equals("menu")) game.changeScreen(Constants.MENU);
-                else if (menu.equals("home")) game.changeScreen(Constants.HOME);
-                else if (menu.equals("game")) game.changeScreen(Constants.GAME);
+                if (menu.equals("menu")) game.changeScreen(ScreenType.MENU);
+                else if (menu.equals("home")) game.changeScreen(ScreenType.HOME);
+                else if (menu.equals("game")) game.changeScreen(ScreenType.GAME);
             }
         });
 
@@ -43,9 +43,9 @@ public class ReturnButton extends Table {
             @Override
             public boolean keyDown(InputEvent event, int keycode) {
                 if(keycode == Keys.ESCAPE) {
-                    if (menu.equals("menu")) game.changeScreen(Constants.MENU);
-                    else if (menu.equals("home")) game.changeScreen(Constants.HOME);
-                    else if (menu.equals("game")) game.changeScreen(Constants.GAME);
+                    if (menu.equals("menu")) game.changeScreen(ScreenType.MENU);
+                    else if (menu.equals("home")) game.changeScreen(ScreenType.HOME);
+                    else if (menu.equals("game")) game.changeScreen(ScreenType.GAME);
                     return true;
                 } else {
                     return false;
