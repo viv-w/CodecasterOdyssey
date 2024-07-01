@@ -1,0 +1,24 @@
+{
+    "id": "quest101",
+    "name": "Greetings!",
+    "questData": [
+        {
+            "level": "EASY",
+            "question": [
+                "Modify the code so that it will print the following text:",
+                "OUTPUT_STARTHello Mundur!OUTPUT_END"
+            ],
+            "template": [
+                "System.out.println(\"\");"
+            ],
+            "solution": [
+                "System.out.println(\"Hello Mundur!\");"
+            ],
+            "hints": [
+                "Enter \"Hello Mundur!\" in between the quotes of System.out.println(\" \");"
+            ],
+            "output": "Hello Mundur!",
+            "successMessage": "Hello to you too!"
+        }
+    ]
+}

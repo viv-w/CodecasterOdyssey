@@ -1,8 +1,8 @@
 package com.fyp.codecasterodyssey;
 
 public class LearningMetrics {
+    private int totalCompleted;
     private int totalAttempts;
-    private int totalCorrect;
     private long totalTimeTaken;
     private int totalHintsUsed;
     private Level level;
@@ -10,38 +10,39 @@ public class LearningMetrics {
     public LearningMetrics() {}
 
     public enum Level {
-        HIGH,
-        MEDIUM,
-        LOW
+        EASY,
+        NORMAL,
+        HARD
     }
 
     public void initialiseData() {
         totalAttempts = 0;
-        totalCorrect = 0;
+        totalCompleted = 0;
         totalTimeTaken = 0;
         totalHintsUsed = 0;
-        level = Level.MEDIUM;
+        level = Level.NORMAL;
     }
 
-    public void logQuest(boolean correct, boolean hintsUsed, long timeTaken, int totalQuestsCompleted) {
-        totalAttempts++;
-        if(correct) totalCorrect++;
-        if(hintsUsed) totalHintsUsed++;
+    public void log(int attempts, int hintsUsed, long timeTaken, int totalQuestsCompleted) {
+        totalCompleted++;
+        totalAttempts += attempts;
+        totalHintsUsed += hintsUsed;
         totalTimeTaken += timeTaken;
+
         updateLevel(totalQuestsCompleted);
     }
 
     public Level updateLevel(int totalQuestsCompleted) {
-        double accuracy = (double) totalCorrect / totalAttempts;
+        double accuracy = (double) totalCompleted / totalAttempts;
         double avgTime = (double) totalTimeTaken / totalAttempts; // 10 min avg
-        int maxHints = Math.max(3, totalQuestsCompleted / 2);
+        int maxHints = totalQuestsCompleted * 3;
         
-        if(accuracy >= 0.8 && avgTime > 600000 && totalHintsUsed <= maxHints) {
-            return Level.HIGH;
+        if(accuracy >= 0.8 && avgTime < 600000 && totalHintsUsed <= maxHints) {
+            return Level.HARD;
         } else if (accuracy >= 0.5) {
-            return Level.MEDIUM;
+            return Level.NORMAL;
         } else {
-            return Level.LOW;
+            return Level.EASY;
         }
     }
 
@@ -54,8 +55,8 @@ public class LearningMetrics {
         return totalAttempts;
     }
 
-    public int getTotalCorrect() {
-        return totalCorrect;
+    public int getTotalCompleted() {
+        return totalCompleted;
     }
 
     public long getTotalTimeTaken() {

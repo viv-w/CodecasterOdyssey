@@ -1,0 +1,24 @@
+{
+    "id": "quest102",
+    "name": "Printing",
+    "questData": [
+        {
+            "level": "EASY",
+            "question": [
+                "Modify the code so that it will print the following text:",
+                "OUTPUT_STARTHello viv!OUTPUT_END"
+            ],
+            "template": [
+                "System.out.println(\"\");"
+            ],
+            "solution": [
+                "System.out.println(\"Hello viv!\");"
+            ],
+            "hints": [
+                "Enter \"Hello viv!\" in between the quotes of System.out.println(\" \");"
+            ],
+            "output": "Hello viv!",
+            "successMessage": "Hello to you too!"
+        }
+    ]
+}

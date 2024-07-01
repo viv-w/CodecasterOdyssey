@@ -6,7 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.fyp.codecasterodyssey.CodecasterOdyssey;
 import com.fyp.codecasterodyssey.LearningPath;
-import com.fyp.codecasterodyssey.Spell;
 import com.fyp.codecasterodyssey.UI.BackgroundTable;
 import com.fyp.codecasterodyssey.UI.ProgressBarTable;
 import com.fyp.codecasterodyssey.UI.ReturnButton;
@@ -42,10 +41,8 @@ public class SpellProgressScreen extends BaseScreen {
                 int userSpellsPP = 0;
 
                 for (String spellId : game.getCurrentUser().getCollectedSpells()) {
-                    for(Spell spell: path.getSpells()) {
-                        if(spellId.contains(spell.getId()))
-                            userSpellsPP++;
-                    }
+                    if(path.getSpellbyId(spellId) != null)
+                        userSpellsPP++;
                 }
 
                 float spellPercentage = ((float) userSpellsPP / totalSpellsPP) * 100;

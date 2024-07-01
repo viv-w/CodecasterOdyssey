@@ -1,0 +1,73 @@
+{
+    "class": "com.fyp.codecasterodyssey.events.Scene",
+    "id": "scene101",
+    "nextId": "scene102",
+    "spell": "spell101",
+    "quest": "quest101",
+    "events": [
+        {
+            "class": "com.fyp.codecasterodyssey.events.TextEvent",
+            "type": "text",
+            "text": [
+                "And so, I visited him the next day for my very first lesson of codecasting."
+            ]
+        },
+        {
+            "class": "com.fyp.codecasterodyssey.events.DialogueEvent",
+            "type": "dialogue",
+            "path": "image/Mundur.png",
+            "speaker": "Mundur",
+            "text": [
+                "Ah, {VAR=USERNAME}, you're here.",
+                "Here, let's start to learn your first spell, shall we?"
+            ]
+        },
+        {
+            "class": "com.fyp.codecasterodyssey.events.UnlockEvent",
+            "type": "unlock",
+            "isSpell": true
+        },
+        {
+            "class": "com.fyp.codecasterodyssey.events.DialogueEvent",
+            "type": "dialogue",
+            "path": "image/Mundur.png",
+            "speaker": "Mundur",
+            "text": [
+                "This spell can voiced out words you have written on the scroll, for example..."
+            ]
+        },
+        {
+            "class": "com.fyp.codecasterodyssey.events.TextEvent",
+            "type": "text",
+            "text": [
+                "HELLO [!]{VAR=USERNAME}!"
+            ]
+        },
+        {
+            "class": "com.fyp.codecasterodyssey.events.DialogueEvent",
+            "type": "dialogue",
+            "path": "image/Mundur.png",
+            "speaker": "Mundur",
+            "text": [
+                "Interesting, is it not? Now, it's your turn."
+            ]
+        },
+        {
+            "class": "com.fyp.codecasterodyssey.events.UnlockEvent",
+            "type": "unlock",
+            "isSpell": false
+        },
+        {
+            "class": "com.fyp.codecasterodyssey.events.QuestEvent"
+        },
+        {
+            "class": "com.fyp.codecasterodyssey.events.DialogueEvent",
+            "type": "dialogue",
+            "path": "image/Mundur.png",
+            "speaker": "Mundur",
+            "text": [
+                "Well done! and Hello to you too."
+            ]
+        }
+    ]
+}

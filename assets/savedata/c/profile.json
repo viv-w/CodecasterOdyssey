@@ -1,0 +1,21 @@
+{
+"username": "c",
+"collectedSpells": [
+	"spell101"
+],
+"completedQuests": [
+	"quest101"
+],
+"completedScenes": [
+	"scene101"
+],
+"currentPath": "path01",
+"learningMetrics": {
+	"totalCompleted": 1,
+	"totalAttempts": 1,
+	"totalTimeTaken": 8035,
+	"level": "NORMAL"
+},
+"playtime": 44553,
+"lastSaved": "01/07/2024 22:29"
+}

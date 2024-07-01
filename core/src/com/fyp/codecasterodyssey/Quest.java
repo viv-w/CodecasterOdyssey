@@ -5,14 +5,9 @@ import java.util.ArrayList;
 public class Quest {
     private String id;
     private String name;
-    private ArrayList<String> content = new ArrayList<>();
+    private ArrayList<QuestData> questData = new ArrayList<>();
 
     public Quest() {}
-
-    public Quest(String id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 
     public String getId() {
         return id;
@@ -22,7 +17,8 @@ public class Quest {
         return name;
     }
 
-    public ArrayList<String> getContent() {
-        return content;
+    public ArrayList<QuestData> getQuestData() {
+        return questData;
     }
+
 }

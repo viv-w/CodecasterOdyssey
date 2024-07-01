@@ -63,4 +63,8 @@ public class UnlockEvent extends Event {
         ((GameScreen) game.getScreen()).resetButtons();
         
     }
+
+    public boolean getIsSpell() {
+        return isSpell;
+    }
 }

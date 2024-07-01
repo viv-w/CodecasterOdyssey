@@ -1,0 +1,22 @@
+{
+"username": "xav1",
+"collectedSpells": [
+	"spell101"
+],
+"completedQuests": [
+	"quest101"
+],
+"completedScenes": [
+	"scene101"
+],
+"currentPath": "path01",
+"currentQuest": "quest102",
+"learningMetrics": {
+	"totalCompleted": 1,
+	"totalAttempts": 1,
+	"totalTimeTaken": 18370,
+	"level": "NORMAL"
+},
+"playtime": 390112,
+"lastSaved": "01/07/2024 21:47"
+}

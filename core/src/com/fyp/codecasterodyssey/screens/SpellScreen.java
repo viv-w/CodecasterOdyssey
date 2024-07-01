@@ -77,11 +77,7 @@ public class SpellScreen extends BaseScreen {
 
         contentTable.clear();
 
-        Spell spell = null;
-        for(Spell tSpell : game.getAllSpells()) {
-            if(tSpell.getId().equals(spellId))
-                spell = tSpell;
-        }
+        Spell spell = game.getSpellbyId(spellId);
 
         boolean isCode = false;
         StringBuilder code = new StringBuilder();
@@ -95,7 +91,7 @@ public class SpellScreen extends BaseScreen {
                 line = line.replace("CODE_START", "").trim();
             }
 
-            // TODO auto syntax highlight
+            // what if we do... auto syntax highlight
             if(isCode) {
                 if(line.contains("CODE_END")) {
                     line = line.replace("CODE_END", "").trim();

@@ -6,7 +6,7 @@ public class Spell {
     private String id;
     private String name;
     private ArrayList<String> content = new ArrayList<>();
-    private ArrayList<String> quests = new ArrayList<>();
+    // private ArrayList<String> quests = new ArrayList<>();
     
     public Spell() {}
 
@@ -27,7 +27,7 @@ public class Spell {
         return content;
     }
 
-    public ArrayList<String> getQuests() {
-        return quests;
-    }
+    // public ArrayList<String> getQuests() {
+    //     return quests;
+    // }
 }

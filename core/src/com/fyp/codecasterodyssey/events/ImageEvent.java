@@ -20,7 +20,7 @@ public class ImageEvent extends Event {
         Image image = new Image(new TextureRegionDrawable(texture));
         gameView.add(image).pad(5);
 
-        // FIXME this is specifically for logo only - need to add if(logo) do this else (??? tbc)
+        // only for logo
         image.addAction(Actions.sequence(
             Actions.fadeOut(0f),
             Actions.fadeIn(duration - 2f),

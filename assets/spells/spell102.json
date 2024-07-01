@@ -1,0 +1,13 @@
+{
+    "id": "spell102",
+    "name": "Printing",
+    "content": [
+        "The print command System.out.println(\"Hello world\"); prints the text \"Hello world.\"",
+        "input: System.out.println(\"Hello world\");",
+        "output: Hello world!",
+        "You can print any text you want with the command, as long as the command System.out.println(\"text\"); -i.e., System dot out dot println open parenthesis ( \"the text\" close parenthesis ) and semicolon ; remains unchanged.",
+        "The command below will print the text \"Hello {VAR=USERNAME}!\".",
+        "input: System.out.println(\"Hello {VAR=USERNAME}!\");",
+        "output: Hello {VAR=USERNAME}!"
+    ]
+}

@@ -1,20 +1,24 @@
 {
     "class": "com.fyp.codecasterodyssey.events.Scene",
-    "id": "scene02",
+    "id": "scene201",
+    "quest": "quest201",
     "events": [
         {
             "class": "com.fyp.codecasterodyssey.events.TextEvent",
             "type": "text",
             "text": [
-                "Welcome to scene 2!"
+                "Welcome to scene 201!"
             ]
         },
         {
             "class": "com.fyp.codecasterodyssey.events.TextEvent",
             "type": "text",
             "text": [
-                "AUGHHHHH"
+                "ueueueue"
             ]
+        },
+        {
+            "class": "com.fyp.codecasterodyssey.events.EndEvent"
         }
     ]
 }

@@ -13,8 +13,11 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.fyp.codecasterodyssey.CodecasterOdyssey;
+import com.fyp.codecasterodyssey.LearningPath;
+import com.fyp.codecasterodyssey.User;
 import com.fyp.codecasterodyssey.CodecasterOdyssey.ScreenType;
 import com.fyp.codecasterodyssey.events.QuestEvent;
+import com.fyp.codecasterodyssey.events.Scene;
 import com.fyp.codecasterodyssey.events.SceneManager;
 import com.fyp.codecasterodyssey.events.UnlockEvent;
 
@@ -22,7 +25,7 @@ public class GameScreen extends BaseScreen {
 
     private SceneManager sceneManager;
     private Table root, gameView, buttonTable, homeButton;
-    private TextButton spellButton, questButton, testButton;
+    private TextButton spellButton, questButton;
     private boolean spellTutorial, questTutorial;
 
     public GameScreen(final CodecasterOdyssey codecasterOdyssey) {
@@ -52,12 +55,12 @@ public class GameScreen extends BaseScreen {
         buttonTable = new Table();
         root.add(buttonTable).pad(5);
 
-        // TODO add listener to save code each time user return
         homeButton = new TextButton(" Home ", game.getSkin());
         homeButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.changeScreen(ScreenType.HOME);
+                saveCode();
             }
         });
         stage.addListener(new InputListener() {
@@ -65,6 +68,8 @@ public class GameScreen extends BaseScreen {
             public boolean keyDown(InputEvent event, int keycode) {
                 if(keycode == Keys.ESCAPE) {
                     game.changeScreen(ScreenType.HOME);
+                    saveCode();
+
                     return true;
                 } else {
                     return false;
@@ -78,6 +83,7 @@ public class GameScreen extends BaseScreen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.changeScreen(ScreenType.QUEST);
+                saveCode();
 
                 if (questTutorial && sceneManager.getCurrentEvent() instanceof UnlockEvent) {
                     questTutorial = false;
@@ -92,6 +98,7 @@ public class GameScreen extends BaseScreen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 game.changeScreen(ScreenType.SPELL);
+                saveCode();
 
                 if(spellTutorial && sceneManager.getCurrentEvent() instanceof UnlockEvent) {
                     spellTutorial = false;
@@ -104,42 +111,39 @@ public class GameScreen extends BaseScreen {
         startGame();
     }
 
-    // FIXME this thing may still be incorrect
+    private void saveCode() {
+        if(sceneManager.getCurrentEvent() instanceof QuestEvent) {
+            ((QuestEvent) sceneManager.getCurrentEvent()).saveCode();
+        }
+    }
+
     private void startGame() {
-        ArrayList<String> completedScenes = game.getCurrentUser().getCompletedScenes();
+        User user = game.getCurrentUser();
+        ArrayList<String> completedScenes = user.getCompletedScenes();
 
         if(completedScenes.isEmpty()) // for first time
             sceneManager.load(game.getAllScenes().get(0).getId());
-        else if(sceneManager.getCurrentScene() != null && !sceneManager.getCurrentScene().isComplete()) { // for ongoing
-            sceneManager.load(sceneManager.getCurrentScene().getId());
+        else {
+            LearningPath currentPath = game.getPathbyId(user.getCurrentPath());
+            for(Scene scene : currentPath.getScenes()) {
+                if(!user.getCompletedScenes().contains(scene.getId())) {
+                    sceneManager.load(scene.getId());
+                    break;
+                }
+            }
         }
-        else { // for returning
-            String latestScene = completedScenes.get(completedScenes.size() - 1);
-            sceneManager.loadNext(latestScene);
-        }
-
+        // else if(sceneManager.getScene() != null && !sceneManager.getScene().isComplete()) { // for ongoing
+        //     sceneManager.load(sceneManager.getScene().getId());
+        // }
+        // else { // for returning
+        //     String latestScene = completedScenes.get(completedScenes.size() - 1);
+        //     sceneManager.loadNext(latestScene);
+        // }
     }
 
     public void resetButtons() {
         questButton.setDisabled(game.getCurrentUser().getCurrentQuest() == null);
         spellButton.setDisabled(game.getCurrentUser().getCollectedSpells().isEmpty());
-    }
-
-    public void enableTestButton(boolean isQuestEvent) {
-        if(isQuestEvent) {
-            testButton = new TextButton(" Test Code ", game.getSkin());
-            testButton.addListener(new ChangeListener() {
-                @Override
-                public void changed(ChangeEvent event, Actor actor) {
-                    if (sceneManager.getCurrentEvent() instanceof QuestEvent)
-                       ((QuestEvent) sceneManager.getCurrentEvent()).checkCode();
-                }
-            });
-
-            buttonTable.add(testButton).pad(5);
-        } else {
-            testButton.remove();
-        }
     }
 
     public boolean getSpellTutorial() {

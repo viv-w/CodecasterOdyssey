@@ -1,0 +1,12 @@
+[
+{
+	"class": "com.fyp.codecasterodyssey.QuestLog",
+	"questId": "quest101",
+	"timeTaken": 6235
+},
+{
+	"class": "com.fyp.codecasterodyssey.QuestLog",
+	"questId": "quest102",
+	"timeTaken": 987
+}
+]

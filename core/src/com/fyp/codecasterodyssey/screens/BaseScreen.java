@@ -30,8 +30,7 @@ public abstract class BaseScreen extends ScreenAdapter {
     @Override
     public void hide() {
         if(game.getCurrentUser() != null && startTime != 0) {
-            long endTime = System.currentTimeMillis();
-            game.getCurrentUser().addPlaytime(endTime - startTime);
+            game.getCurrentUser().addPlaytime(System.currentTimeMillis() - startTime); // endTime - startTime
             startTime = 0;
         }
     }

@@ -3,12 +3,10 @@ package com.fyp.codecasterodyssey.screens;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.fyp.codecasterodyssey.CodecasterOdyssey;
 import com.fyp.codecasterodyssey.User;
 import com.fyp.codecasterodyssey.UI.BackgroundTable;
@@ -64,12 +62,12 @@ public class LeaderboardScreen extends BaseScreen {
             rankTable.add(usernameLabel).pad(5).expandX().left();
             rankTable.add(percentageLabel).pad(5).right();
             rankTable.add(progressBar).pad(5).right();
-            rankTable.addListener(new ClickListener() {
-                    @Override
-                    public void clicked(InputEvent event, float x, float y) {
-                        // TODO expand or remove - might remove this or implement it another way e.g. just display at bottom
-                    }
-                });
+            // rankTable.addListener(new ClickListener() {
+            //         @Override
+            //         public void clicked(InputEvent event, float x, float y) {
+            //             // expand or remove - might remove this or implement it another way e.g. just display at bottom
+            //         }
+            //     });
 
             scrollTable.add(rankTable).minWidth(400).pad(5);
             scrollTable.row();

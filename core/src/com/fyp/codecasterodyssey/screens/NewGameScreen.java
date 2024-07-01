@@ -59,10 +59,6 @@ public class NewGameScreen extends BaseScreen {
                 // ensure username is not empty
                 if(username.isEmpty())
                     errorLabel.setText("please enter your username");
-
-                // ensure username is not equal to a reserved value
-                else if(username.equals("nil"))
-                    errorLabel.setText("invalid username, please choose another username");
                 
                 // ensure username is alphanumeric
                 else if(!isUsernameAlphanumeric(username))
@@ -106,6 +102,7 @@ public class NewGameScreen extends BaseScreen {
                     User user = new User(tempUsername);
                     game.getAllUsers().add(user);
                     game.setCurrentUser(user);
+                    game.setQuestlogs();
                     game.changeScreen(ScreenType.HOME);
 
                 }

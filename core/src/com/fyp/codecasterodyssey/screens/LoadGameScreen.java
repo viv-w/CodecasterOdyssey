@@ -97,6 +97,7 @@ public class LoadGameScreen extends BaseScreen {
                 boolean confirm = (Boolean) object;
                 if (confirm) {
                     game.setCurrentUser(FileUtility.loadUserJSON(tempUsername));
+                    game.setQuestlogs();
                     game.changeScreen(ScreenType.HOME);
                 }
             }

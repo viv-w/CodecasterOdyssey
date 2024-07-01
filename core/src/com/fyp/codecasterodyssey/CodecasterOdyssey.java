@@ -38,7 +38,9 @@ public class CodecasterOdyssey extends Game {
 	private Skin skin;
 	private Font gameFont, spellFont, codeFont;
 	private FontFamily fontFamily;
+
 	private User currentUser;
+	private ArrayList<QuestLog> questLogs;
 
 	
 	@Override
@@ -52,15 +54,13 @@ public class CodecasterOdyssey extends Game {
 		fontFamily = new FontFamily(new Font[]{gameFont, spellFont, codeFont});
 
 		allPaths = FileUtility.getAllPaths();
-		allScenes = FileUtility.getAllScenes();
 
+		allScenes = new ArrayList<>();
 		allSpells = new ArrayList<>();
-		for(LearningPath path : allPaths) {
-			allSpells.addAll(path.getSpells());
-		}
-
 		allQuests = new ArrayList<>();
-		for (LearningPath path : allPaths) {
+		for(LearningPath path : allPaths) {
+			allScenes.addAll(path.getScenes());
+			allSpells.addAll(path.getSpells());
 			allQuests.addAll(path.getQuests());
 		}
 
@@ -104,6 +104,35 @@ public class CodecasterOdyssey extends Game {
 		return currentUser;
 	}
 
+	public ArrayList<QuestLog> getQuestLogs() {
+		return questLogs;
+	}
+
+	public QuestLog getQuestlogById(String questId) {
+		for(QuestLog questLog : questLogs) {
+			if(questLog.getQuestId().equals(questId))
+				return questLog;
+		}
+		
+		return null;
+	}
+
+	public void updateQuestLog(QuestLog newLog) {
+		for(QuestLog questLog : questLogs) {
+			if (questLog.getQuestId().equals(newLog.getQuestId())) {
+				questLog.setTimeTaken(newLog.getTimeTaken());
+				questLog.setHintUsed(newLog.isHintUsed());
+				questLog.setCompleted(newLog.isCompleted());
+			}
+		}
+		FileUtility.updateQuestLogsJSON(currentUser.getUsername(), questLogs);
+	}
+
+	public void addQuestLog(QuestLog questLog) {
+		questLogs.add(questLog);
+		FileUtility.updateQuestLogsJSON(currentUser.getUsername(), questLogs);
+	}
+
 	public ArrayList<User> getAllUsers() {
 		return FileUtility.getAllUsers();
 	}
@@ -129,6 +158,10 @@ public class CodecasterOdyssey extends Game {
 		currentUser = user;
 	}
 
+	public void setQuestlogs() {
+		questLogs = FileUtility.loadQuestLogs(currentUser.getUsername());
+	}
+
 	public enum ScreenType {
 		MENU,
 		NEWGAME,
@@ -151,6 +184,7 @@ public class CodecasterOdyssey extends Game {
 				if(menuScreen == null) menuScreen = new MenuScreen(this);
 				setScreen(menuScreen);
 				currentUser = null;
+				questLogs = null;
 				TypingConfig.GLOBAL_VARS.remove("USERNAME");
 				break;
 		
@@ -260,5 +294,45 @@ public class CodecasterOdyssey extends Game {
 			questScreen.dispose();
 			questScreen = null;
 		}
+	}
+
+	public LearningPath getPathbyId(String pathId) {
+		for(LearningPath path : allPaths) {
+			if(path.getId().equals(pathId))
+				return path;
+		}
+
+		return null;
+	}
+
+	public Quest getQuestbyId(String questId) {
+		for(Quest quest : allQuests) {
+			if(quest.getId().equals(questId))
+				return quest;
+		}
+		
+		return null;
+	}
+	
+	public Spell getSpellbyId(String spellId) {
+		for(Spell spell : allSpells) {
+			if(spell.getId().equals(spellId))
+				return spell;
+		}
+
+		return null;
+	}
+
+	public QuestData getPersonalisedQuest(String questId) {
+		QuestData bestMatch = null;
+
+		for (QuestData data : getQuestbyId(questId).getQuestData()) {
+			if (data.getLevel() == currentUser.getLearningMetrics().getLevel())
+				return data;
+			else if (bestMatch == null || data.getLevel().ordinal() < bestMatch.getLevel().ordinal())
+				bestMatch = data;
+		}
+
+		return bestMatch;
 	}
 }

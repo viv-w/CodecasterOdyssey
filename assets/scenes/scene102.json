@@ -1,37 +1,20 @@
 {
     "class": "com.fyp.codecasterodyssey.events.Scene",
-    "id": "scene01",
-    "nextId": "scene02",
-    "spell": "spell101",
-    "quest": "quest101",
+    "id": "scene102",
+    "quest": "quest102",
     "events": [
         {
             "class": "com.fyp.codecasterodyssey.events.TextEvent",
             "type": "text",
             "text": [
-                "And so, I visited him the next day for my very first lesson of codecasting."
+                "Welcome to scene 2!"
             ]
-        },
-        {
-            "class": "com.fyp.codecasterodyssey.events.DialogueEvent",
-            "type": "dialogue",
-            "path": "image/Mundur.png",
-            "speaker": "Mundur",
-            "text": [
-                "Ah, {VAR=USERNAME}, you're here.",
-                "(explain the world of codecasting)"
-            ]
-        },
-        {
-            "class": "com.fyp.codecasterodyssey.events.UnlockEvent",
-            "type": "unlock",
-            "isSpell": true
         },
         {
             "class": "com.fyp.codecasterodyssey.events.TextEvent",
             "type": "text",
             "text": [
-                "(more explaination)"
+                "AUGHHHHH"
             ]
         },
         {
@@ -46,8 +29,11 @@
             "class": "com.fyp.codecasterodyssey.events.TextEvent",
             "type": "text",
             "text": [
-                "{JOLT} that is about it"
+                "Ok done"
             ]
+        },
+        {
+            "class": "com.fyp.codecasterodyssey.events.EndEvent"
         }
     ]
 }

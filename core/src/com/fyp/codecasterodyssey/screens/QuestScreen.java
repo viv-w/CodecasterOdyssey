@@ -3,13 +3,13 @@ package com.fyp.codecasterodyssey.screens;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.fyp.codecasterodyssey.CodecasterOdyssey;
-import com.fyp.codecasterodyssey.Quest;
 import com.fyp.codecasterodyssey.UI.ReturnButton;
 import com.github.tommyettinger.textra.TypingLabel;
 
 public class QuestScreen extends BaseScreen {
 
     private Table root;
+    private Label questInfoLabel;
 
     public QuestScreen(CodecasterOdyssey codecasterOdyssey) {
         super(codecasterOdyssey);
@@ -23,21 +23,16 @@ public class QuestScreen extends BaseScreen {
         root.top();
         stage.addActor(root);
 
-        String currentQuest = game.getCurrentUser().getCurrentQuest();
-        if(currentQuest != null) {
-            Quest quest = null;
-            for(Quest tQuest: game.getAllQuests()) {
-                if(tQuest.getId().equals(currentQuest))
-                    quest = tQuest;
-            }
-            // TODO activate quest = add to JSON? but that mean scene progress need to be save when quitting....
-            // add a new storage of like activatedQuest or collectedQuest?? (yg alum dibuat) but is this wise?
-            // and maybe add a system to show completed Quests actually...
+        questInfoLabel = new Label("Quest Information:", game.getSkin());
+        root.add(questInfoLabel).pad(5).left();
+        root.row();
 
+        String currentQuest = game.getCurrentUser().getCurrentQuest();
+        if(currentQuest != null) {        
             boolean isOutput = false;
             StringBuilder output = new StringBuilder();
 
-            for(String line : quest.getContent()) {
+            for(String line : game.getPersonalisedQuest(currentQuest).getQuestion()) {
 
                 if(line.startsWith("OUTPUT_START")) {
                     isOutput = true;
