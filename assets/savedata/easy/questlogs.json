@@ -2,7 +2,7 @@
 {
 	"class": "com.fyp.codecasterodyssey.QuestLog",
 	"questId": "quest101",
-	"timeTaken": 22586,
-	"hintUsed": true
+	"timeTaken": 6118,
+	"isCompleted": true
 }
 ]

@@ -2,11 +2,12 @@
 {
 	"class": "com.fyp.codecasterodyssey.QuestLog",
 	"questId": "quest101",
-	"timeTaken": 6235
+	"timeTaken": 22153
 },
 {
 	"class": "com.fyp.codecasterodyssey.QuestLog",
 	"questId": "quest102",
-	"timeTaken": 987
+	"timeTaken": 17917,
+	"isCompleted": true
 }
 ]

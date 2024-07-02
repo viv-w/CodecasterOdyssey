@@ -15,7 +15,7 @@
                 "System.out.println(\"Hello Mundur!\");"
             ],
             "hints": [
-                "Enter \"Hello Mundur!\" in between the quotes of System.out.println(\" \");"
+                "Input \"Hello Mundur!\" in between the quotes of System.out.println(\" \");"
             ],
             "output": "Hello Mundur!",
             "successMessage": "Hello to you too!"

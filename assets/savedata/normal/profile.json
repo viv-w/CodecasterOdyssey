@@ -1,7 +1,8 @@
 {
-"username": "xav1",
+"username": "normal",
 "collectedSpells": [
-	"spell101"
+	"spell101",
+	"spell102"
 ],
 "completedQuests": [
 	"quest101"
@@ -14,9 +15,9 @@
 "learningMetrics": {
 	"totalCompleted": 1,
 	"totalAttempts": 1,
-	"totalTimeTaken": 18370,
+	"totalTimeTaken": 6118,
 	"level": "NORMAL"
 },
-"playtime": 390112,
-"lastSaved": "01/07/2024 21:47"
+"playtime": 59844,
+"lastSaved": "02/07/2024 07:53"
 }

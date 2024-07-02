@@ -1,20 +1,28 @@
 {
     "class": "com.fyp.codecasterodyssey.events.Scene",
     "id": "scene102",
+    "spell": "spell102",
     "quest": "quest102",
     "events": [
         {
             "class": "com.fyp.codecasterodyssey.events.TextEvent",
             "type": "text",
             "text": [
-                "Welcome to scene 2!"
+                "Mundur handed me another spell."
             ]
         },
         {
-            "class": "com.fyp.codecasterodyssey.events.TextEvent",
-            "type": "text",
+            "class": "com.fyp.codecasterodyssey.events.UnlockEvent",
+            "type": "unlock",
+            "isSpell": true
+        },
+        {
+            "class": "com.fyp.codecasterodyssey.events.DialogueEvent",
+            "type": "dialogue",
+            "path": "image/Mundur.png",
+            "speaker": "Mundur",
             "text": [
-                "AUGHHHHH"
+                "Let's do it again, but this time, to the whole world!"
             ]
         },
         {
@@ -24,13 +32,6 @@
         },
         {
             "class": "com.fyp.codecasterodyssey.events.QuestEvent"
-        },
-        {
-            "class": "com.fyp.codecasterodyssey.events.TextEvent",
-            "type": "text",
-            "text": [
-                "Ok done"
-            ]
         },
         {
             "class": "com.fyp.codecasterodyssey.events.EndEvent"

@@ -1,7 +1,21 @@
 {
     "id": "spell201",
-    "name": "Conditional statements and conditional operations",
+    "name": "If statement",
     "content": [
-        "SPELL CONTENT HERE"
+        "[*]Conditionals[*]",
+        "Conditionals allow the program to make decision based on certain conditions.",
+        "",
+        "[*]If statement[*]",
+        "if statements allow statements to be conditionally executed or skipped over.",
+        "Think about it this way:",
+        "\"If it is raining, take an umbrella.\"",
+        "\"If you are hungry, eat!\"",
+        "General format:",
+        "CODE_START[black]if (expression) {",
+        "   // statement(s) to be executed if true",
+        "}CODE_END",
+        "To evaluate:",
+        "if the expression is true, then statement(s) are executed.",
+        "if the expression is false, then statement(s) are skipped."
     ]
 }

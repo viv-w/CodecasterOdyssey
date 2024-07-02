@@ -1,5 +1,5 @@
 {
-"username": "c",
+"username": "prerequisite",
 "collectedSpells": [
 	"spell101"
 ],
@@ -9,13 +9,13 @@
 "completedScenes": [
 	"scene101"
 ],
-"currentPath": "path01",
+"currentPath": "path02",
 "learningMetrics": {
 	"totalCompleted": 1,
 	"totalAttempts": 1,
-	"totalTimeTaken": 8035,
-	"level": "NORMAL"
+	"totalTimeTaken": 6118,
+	"level": "EASY"
 },
-"playtime": 44553,
-"lastSaved": "01/07/2024 22:29"
+"playtime": 68361,
+"lastSaved": "02/07/2024 10:13"
 }

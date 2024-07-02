@@ -10,7 +10,7 @@ public class EndEvent extends Event {
     public void execute() {
         gameView.clear();
         
-        String str = "Congratulations, you have completed " + scene.getId();
+        String str = "Congratulations, you have completed " + game.getCurrentUser().getCurrentPath() + ", please select another path.";
         TypingLabel label = new TypingLabel(str, game.getSkin(), game.getFontFamily().connected[0]);
         label.setWrap(true);
         gameView.add(label).minWidth(400).pad(3);

@@ -5,20 +5,61 @@
         {
             "level": "EASY",
             "question": [
-                "Modify the code so that it will print the following text:",
-                "OUTPUT_STARTHello viv!OUTPUT_END"
+                "Modify the code that will print the following text:",
+                "OUTPUT_STARTHello World!OUTPUT_END"
             ],
             "template": [
                 "System.out.println(\"\");"
             ],
             "solution": [
-                "System.out.println(\"Hello viv!\");"
+                "System.out.println(\"Hello World!\");"
             ],
             "hints": [
-                "Enter \"Hello viv!\" in between the quotes of System.out.println(\" \");"
+                "Input \"Hello World!\" inside the quotes!"
             ],
-            "output": "Hello viv!",
-            "successMessage": "Hello to you too!"
+            "output": "Hello World!",
+            "successMessage": "Hello again!"
+        },
+        {
+            "level": "NORMAL",
+            "question": [
+                "Write the code that will print the following text:",
+                "OUTPUT_STARTHello World!OUTPUT_END"
+            ],
+            "template": [
+                ""
+            ],
+            "solution": [
+                "System.out.println(\"Hello World!\");"
+            ],
+            "hints": [
+                "Use System.out.println(\" \"); to complete the quest",
+                "Don't forget to input \"Hello World!\" inside the quotes!"
+            ],
+            "output": "Hello World!",
+            "successMessage": "Hello again!"
+        },
+        {
+            "level": "HARD",
+            "question": [
+                "Modify the code so that it will print the following text:",
+                "OUTPUT_STARTHello",
+                "WorldOUTPUT_END"
+            ],
+            "template": [
+                ""
+            ],
+            "solution": [
+                "System.out.println(\"Hello\");",
+                "System.out.println(\"World\");"
+            ],
+            "hints": [
+                "Use System.out.println(\" \"); to complete the quest",
+                "You need two System.out.println(\" \");",
+                "Don't forget to input \"Hello\" or \"World\" inside the quotes."
+            ],
+            "output": "Hello\nWorld!",
+            "successMessage": "Hello again!"
         }
     ]
 }

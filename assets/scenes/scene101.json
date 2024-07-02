@@ -33,14 +33,15 @@
             "path": "image/Mundur.png",
             "speaker": "Mundur",
             "text": [
-                "This spell can voiced out words you have written on the scroll, for example..."
+                "This spell can voiced out the words you have written on the scroll, for example..."
             ]
         },
         {
             "class": "com.fyp.codecasterodyssey.events.TextEvent",
             "type": "text",
             "text": [
-                "HELLO [!]{VAR=USERNAME}!"
+                "Mundur wrote something on his scroll.",
+                "Suddenly, I can hear \"HELLO [!]{VAR=USERNAME}!\" around us."
             ]
         },
         {

@@ -21,23 +21,13 @@
     {
         "class": "com.fyp.codecasterodyssey.LearningPath",
         "id": "path02",
-        "description": "Get familiar with conditionals",
+        "description": "Get familiar with conditionals:",
         "scenes": [
             { "id": "scene201"}
 
         ],
         "spells": [
             { "id": "spell201" }
-        ]
-    },
-    {
-        "class": "com.fyp.codecasterodyssey.LearningPath",
-        "id": "path03",
-        "description": "Methods",
-        "spells": [
-            {
-                "id": "spell301"
-            }
         ]
     }
 ]

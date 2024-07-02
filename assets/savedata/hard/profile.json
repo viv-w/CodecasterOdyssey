@@ -1,0 +1,23 @@
+{
+"username": "hard",
+"collectedSpells": [
+	"spell101",
+	"spell102"
+],
+"completedQuests": [
+	"quest101"
+],
+"completedScenes": [
+	"scene101"
+],
+"currentPath": "path01",
+"currentQuest": "quest102",
+"learningMetrics": {
+	"totalCompleted": 1,
+	"totalAttempts": 1,
+	"totalTimeTaken": 6118,
+	"level": "HARD"
+},
+"playtime": 59844,
+"lastSaved": "02/07/2024 07:53"
+}

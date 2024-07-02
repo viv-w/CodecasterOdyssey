@@ -1,21 +1,20 @@
 {
     "class": "com.fyp.codecasterodyssey.events.Scene",
     "id": "scene201",
-    "quest": "quest201",
+    "spell": "spell201",
     "events": [
         {
             "class": "com.fyp.codecasterodyssey.events.TextEvent",
             "type": "text",
             "text": [
-                "Welcome to scene 201!"
+                "Welcome to path 2!",
+                "Let's learn about if statement"
             ]
         },
         {
-            "class": "com.fyp.codecasterodyssey.events.TextEvent",
-            "type": "text",
-            "text": [
-                "ueueueue"
-            ]
+            "class": "com.fyp.codecasterodyssey.events.UnlockEvent",
+            "type": "unlock",
+            "isSpell": true
         },
         {
             "class": "com.fyp.codecasterodyssey.events.EndEvent"

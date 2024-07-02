@@ -2,12 +2,19 @@
     "id": "spell102",
     "name": "Printing",
     "content": [
-        "The print command System.out.println(\"Hello world\"); prints the text \"Hello world.\"",
-        "input: System.out.println(\"Hello world\");",
-        "output: Hello world!",
-        "You can print any text you want with the command, as long as the command System.out.println(\"text\"); -i.e., System dot out dot println open parenthesis ( \"the text\" close parenthesis ) and semicolon ; remains unchanged.",
+        "The print command [*][SHINE]System.out.println(\"Hello world\");[][*] prints the text \"Hello world.\"",
+        "CODE_START[black]input: System.out.println(\"Hello world\");",
+        "output: Hello world!CODE_END",
+        "You can print any text you want with the command, as long as the command [*][SHINE]System.out.println(\"text\");[][*] -i.e., System dot out dot println open parenthesis ( \"the text\" close parenthesis ) and semicolon ; remains unchanged.",
         "The command below will print the text \"Hello {VAR=USERNAME}!\".",
-        "input: System.out.println(\"Hello {VAR=USERNAME}!\");",
-        "output: Hello {VAR=USERNAME}!"
+        "CODE_START[black]input: System.out.println(\"Hello {VAR=USERNAME}!\");",
+        "output: Hello {VAR=USERNAME}!CODE_END",
+        "",
+        "Programs are constructed command-by-command, where each command is placed on a new line.",
+        "CODE_START[black]input: System.out.println(\"Hello world!\");",
+        "       System.out.println(\"... and the universe!\");",
+        "",
+        "output: Hello world!",
+        "        ... and the universe!CODE_END"
     ]
 }
